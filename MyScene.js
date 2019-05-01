@@ -10,7 +10,7 @@ class MyScene extends THREE.Scene {
     this.createGUI ();
     this.createLights ();
     this.createCamera (unRenderer);
-    this.tiempoAnterior() = Date.now(); //Tiempo en milisegundos
+    this.tiempoAnterior = Date.now(); //Tiempo en milisegundos
     /*
     V - vacio
     I, J, L, O, S, T, Z - forma de los tetriminos
@@ -91,14 +91,6 @@ class MyScene extends THREE.Scene {
     this.add (this.spotLight);
   }
 
-  createGround () {
-  var ground = new THREE.Mesh ();
-  ground.geometry = new THREE.BoxGeometry (50,0.2,50);ground.geometry.applyMatrix (new THREE.Matrix4().makeTranslation(0,-0.1,0));
-  var texture = new THREE.TextureLoader().load('../imgs/wood.jpg');
-  ground.material = new THREE.MeshPhongMaterial ({map: texture});
-  this.add (ground);
-}
-
   getCamera () {
     return this.camera;
   }
@@ -115,19 +107,30 @@ class MyScene extends THREE.Scene {
       Key code izquierda = 39
       Key code abajo = 40
       */
-      var tecla = event.keyCode; //lee el codigo asociado a una tecla
-      switch (tecla) {
-          case 37: //right arrow
-              //girar 90º
-              break;
-          case 38: //up arrow
-                //girar a la dercha
-          break;
-          case 39: //left arrow
-          break;
-          case 40: //down arrow
-          break;
 
-      }
+    this.addEventListener("keydown", onDocumentKeyDown);
+    function onDocumentKeyDown() {
+        var tecla = event.keyCode;
+        switch (tecla) {
+          case 37:
+            this.i.position.z -= 1;
+            break;
+          case 38:
+            this.i.rotation.x += 1;
+            break;
+          case 39:
+            this.i.position.y -= 1;
+            break;
+          case 40:
+            this.i.position.y += 1;
+            break;
+        }
+    };
+
+    /*var velocidad = 0.5;
+    var tiempoActual = Date.now(); //Tiempo en milisegundos
+    var segundosTranscurridos = (tiempoActual - this.tiempoAnterior)/1000;
+    this.i.position.y -= (velocidad*segundosTranscurridos);
+    this.tiempoAnterior = tiempoActual;*/
   }
 }
