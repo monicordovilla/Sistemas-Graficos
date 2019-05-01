@@ -22,13 +22,15 @@ class MyScene extends THREE.Scene {
          }
      }
 
-     this.axis = new THREE.AxesHelper (5);
-    this.add (this.axis);
-    var geometry = new THREE.BoxGeometry( 1, 1, 1 );
-    var material = new THREE.MeshBasicMaterial( {color: 0x0000FF,
-                                                wireframe:true, wireframeLinewidth: 2.0});
+    //this.axis = new THREE.AxesHelper (5);
+    //this.add (this.axis);
+
+    this.model = new I();
+    this.add (this.model);
 
 
+    //var geometry = new THREE.BoxGeometry( 1, 1, 1 );
+    //var material = new THREE.MeshBasicMaterial( {color: 0x0000FF, wireframe:true, wireframeLinewidth: 2.0});
     //var cube = new THREE.Mesh( geometry, material );
     //this.add( cube );
     /*
