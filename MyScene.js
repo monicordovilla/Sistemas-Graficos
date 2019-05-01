@@ -107,8 +107,25 @@ class MyScene extends THREE.Scene {
       Key code izquierda = 39
       Key code abajo = 40
       */
-
-    this.addEventListener("keydown", onDocumentKeyDown);
+      //var evento = window.event;
+      /*if(window.event.type == "keydown"){
+          var tecla = event.keyCode;
+          switch (tecla) {
+            case 37:
+              this.i.position.z -= 1;
+              break;
+            case 38:
+              this.i.rotation.x += 1;
+              break;
+            case 39:
+              this.i.position.y -= 1;
+              break;
+            case 40:
+              this.i.position.y += 1;
+              break;
+          }
+      }*/
+    /*this.addEventListener("keydown", onDocumentKeyDown);
     function onDocumentKeyDown() {
         var tecla = event.keyCode;
         switch (tecla) {
@@ -125,7 +142,7 @@ class MyScene extends THREE.Scene {
             this.i.position.y += 1;
             break;
         }
-    };
+    };*/
 
     /*var velocidad = 0.5;
     var tiempoActual = Date.now(); //Tiempo en milisegundos
