@@ -10,6 +10,7 @@ class MyScene extends THREE.Scene {
     this.createGUI ();
     this.createLights ();
     this.createCamera (unRenderer);
+    this.tiempoAnterior() = Date.now(); //Tiempo en milisegundos
     /*
     V - vacio
     I, J, L, O, S, T, Z - forma de los tetriminos
@@ -25,8 +26,8 @@ class MyScene extends THREE.Scene {
     //this.axis = new THREE.AxesHelper (5);
     //this.add (this.axis);
 
-    this.model = new I();
-    this.add (this.model);
+    this.i = new I();
+    this.add (this.i);
 
 
     //var geometry = new THREE.BoxGeometry( 1, 1, 1 );
@@ -53,9 +54,7 @@ class MyScene extends THREE.Scene {
     this.points.push( new THREE.Vector3(-ancho,  -alto));
     this.points.push( new THREE.Vector3(-ancho,  alto));
 
-    //var geometry = new THREE.LatheGeometry( points );
     var material = new THREE.LineBasicMaterial( { color: 0x0000ff } );
-    //var lathe = new THREE.Mesh( geometry, material );
 
     this.lineGeometry = new THREE.Geometry();
   	this.lineGeometry.vertices = this.points;
@@ -110,6 +109,25 @@ class MyScene extends THREE.Scene {
   }
 
   update () {
-      this.cameraControl.update();
+      /*
+      Key code derecha = 37
+      Key code arriba = 38
+      Key code izquierda = 39
+      Key code abajo = 40
+      */
+      var tecla = event.keyCode; //lee el codigo asociado a una tecla
+      switch (tecla) {
+          case 37: //right arrow
+              //girar 90º
+              break;
+          case 38: //up arrow
+                //girar a la dercha
+          break;
+          case 39: //left arrow
+          break;
+          case 40: //down arrow
+          break;
+
+      }
   }
 }

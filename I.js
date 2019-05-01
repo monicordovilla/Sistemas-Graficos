@@ -4,7 +4,7 @@ class I extends THREE.Mesh {
 		super();
 		var cuadrado = new THREE.BoxGeometry( 1, 1, 1 );
 		var esqueleto = new THREE.MeshBasicMaterial( {color: 0x000000, wireframe:true, blending: THREE.MultiplyBlending});
-		var azul = new THREE.MeshBasicMaterial( {color: 0x00ffff });
+		var azul = new THREE.MeshBasicMaterial( {color: 0x33cccc });
 
 		var cuadradobsp = new ThreeBSP (cuadrado);
 		var partialResult = cuadradobsp;
