@@ -100,6 +100,24 @@ class MyScene extends THREE.Scene {
     this.camera.updateProjectionMatrix();
   }
 
+  onDocumentKeyDown() {
+      var tecla = event.keyCode;
+      switch (tecla) {
+        case 37:
+          this.i.position.x -= 1;
+          break;
+        case 38:
+          this.i.rotation.z += THREE.Math.degToRad(90);
+          break;
+        case 39:
+          this.i.position.x += 1;
+          break;
+        case 40:
+          this.i.position.y -= 1;
+          break;
+      }
+  };
+
   update () {
       /*
       Key code derecha = 37
@@ -107,42 +125,7 @@ class MyScene extends THREE.Scene {
       Key code izquierda = 39
       Key code abajo = 40
       */
-      //var evento = window.event;
-      /*if(window.event.type == "keydown"){
-          var tecla = event.keyCode;
-          switch (tecla) {
-            case 37:
-              this.i.position.z -= 1;
-              break;
-            case 38:
-              this.i.rotation.x += 1;
-              break;
-            case 39:
-              this.i.position.y -= 1;
-              break;
-            case 40:
-              this.i.position.y += 1;
-              break;
-          }
-      }*/
-    /*this.addEventListener("keydown", onDocumentKeyDown);
-    function onDocumentKeyDown() {
-        var tecla = event.keyCode;
-        switch (tecla) {
-          case 37:
-            this.i.position.z -= 1;
-            break;
-          case 38:
-            this.i.rotation.x += 1;
-            break;
-          case 39:
-            this.i.position.y -= 1;
-            break;
-          case 40:
-            this.i.position.y += 1;
-            break;
-        }
-    };*/
+
 
     /*var velocidad = 0.5;
     var tiempoActual = Date.now(); //Tiempo en milisegundos
