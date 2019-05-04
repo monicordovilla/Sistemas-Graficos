@@ -6,6 +6,8 @@ class O extends THREE.Mesh {
 		var esqueleto = new THREE.MeshBasicMaterial( {color: 0x000000, wireframe:true, blending: THREE.MultiplyBlending});
 		var azul = new THREE.MeshBasicMaterial( {color: 0x33cccc });
 
+		cuadrado.translate (-0.5, -0.5, 0);
+
 		var cuadradobsp = new ThreeBSP (cuadrado);
 		var partialResult = cuadradobsp;
 

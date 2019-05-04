@@ -26,7 +26,7 @@ class MyScene extends THREE.Scene {
     //this.axis = new THREE.AxesHelper (5);
     //this.add (this.axis);
 
-    this.i = new I();
+    this.i = new L();
     this.add (this.i);
 
 
@@ -100,6 +100,12 @@ class MyScene extends THREE.Scene {
     this.camera.updateProjectionMatrix();
   }
 
+  /*
+  Key code derecha = 37
+  Key code arriba = 38
+  Key code izquierda = 39
+  Key code abajo = 40
+  */
   onDocumentKeyDown() {
       var tecla = event.keyCode;
       switch (tecla) {
@@ -119,13 +125,7 @@ class MyScene extends THREE.Scene {
   };
 
   update () {
-      /*
-      Key code derecha = 37
-      Key code arriba = 38
-      Key code izquierda = 39
-      Key code abajo = 40
-      */
-
+      this.cameraControl.update();
 
     /*var velocidad = 0.5;
     var tiempoActual = Date.now(); //Tiempo en milisegundos
