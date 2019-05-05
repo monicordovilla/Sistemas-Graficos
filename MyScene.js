@@ -23,10 +23,10 @@ class MyScene extends THREE.Scene {
          }
      }
 
-    //this.axis = new THREE.AxesHelper (5);
-    //this.add (this.axis);
+    this.axis = new THREE.AxesHelper (5);
+    this.add (this.axis);
 
-    this.i = new L();
+    this.i = new T();
     this.add (this.i);
 
 
