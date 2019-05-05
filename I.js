@@ -2,6 +2,7 @@
 class I extends THREE.Mesh {
 	constructor() {
 		super();
+		this.letra = "I";
 		var sqLength = 1;
 		//var cuadrado = new THREE.BoxGeometry();
 		var squareShape = new THREE.Shape();
@@ -35,5 +36,38 @@ class I extends THREE.Mesh {
 		this.material = azul;
     	//this.geometry = this.result.geometry;
 		this.geometry = cuadrado;
+	}
+
+	moverIzquierda(matriz, posx, posy){
+		if(posx > 0 &&
+		matriz[posx-1][posy] == "V" &&
+		matriz[posx-1][posy+1] == "V" &&
+		matriz[posx-1][posy+2] == "V" &&
+		matriz[posx-1][posy+3] == "V")
+		{
+			return true;
+		}
+		else
+			return false;
+	}
+
+	moverDerecha(matriz, posx, posy){
+		if(posx < 10 &&
+		matriz[posx+1][posy] == "V" &&
+		matriz[posx+1][posy+1] == "V" &&
+		matriz[posx+1][posy+2] == "V" &&
+		matriz[posx+1][posy+3] == "V")
+		{
+			return true;
+		}
+		else
+			return false;
+	}
+
+	moverAbajo(matriz, posx, posy){
+		if(posy < 16 && matriz[posx][posy+3+1] == "V"){
+			return true;
+		}
+		return false;
 	}
 }
