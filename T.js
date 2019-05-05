@@ -6,6 +6,7 @@ class T extends THREE.Mesh {
 		var esqueleto = new THREE.MeshBasicMaterial( {color: 0x000000, wireframe:true, blending: THREE.MultiplyBlending});
 		var rosa = new THREE.MeshBasicMaterial( {color: 0xFF4AB1 });
 
+		cuadrado.translate (-1, 0, 0);
 		var cuadradobsp = new ThreeBSP (cuadrado);
 		var partialResult = cuadradobsp;
 
@@ -19,7 +20,7 @@ class T extends THREE.Mesh {
 		cuadradobsp = new ThreeBSP (cuadrado);
 		partialResult = partialResult.union ( cuadradobsp ) ;
 		
-		this.material = esqueleto;
+		this.material = rosa;
 
 		this.result = partialResult.toMesh(this.material);
 		this.result.geometry.computeFaceNormals();

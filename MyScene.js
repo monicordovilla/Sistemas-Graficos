@@ -26,7 +26,7 @@ class MyScene extends THREE.Scene {
     //this.axis = new THREE.AxesHelper (5);
     //this.add (this.axis);
 
-    this.i = new L();
+    this.i = new Z();
     this.add (this.i);
 
 
