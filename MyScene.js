@@ -11,6 +11,8 @@ class MyScene extends THREE.Scene {
     this.createLights ();
     this.createCamera (unRenderer);
     this.tiempoAnterior = Date.now(); //Tiempo en milisegundos
+    this.tetrimino = new THREE.Object3D();
+    this.objetoRotacion = new THREE.Object3D();
     /*
     V - vacio
     I, J, L, O, S, T, Z - forma de los tetriminos
@@ -28,45 +30,262 @@ class MyScene extends THREE.Scene {
          console.log("\n");
          //document.writeln("\nsalto de linea\n");
      }
-     //posicion tetramino en la matriz
-     this.posy = 0;
-     this.posx = 5;
 
-    this.axis = new THREE.AxesHelper (5);
-    this.add (this.axis);
+    /*this.axis = new THREE.AxesHelper (5);
+    this.add (this.axis);*/
 
-    this.tetramino = new I();
-    this.add (this.tetramino);
-
-    if(this.tetramino.letra == "T"){
-     this.tetramino.applyMatrix (new THREE.Matrix4().makeTranslation(0,8,0));
-    }
-    else if(this.tetramino.letra == "I"){
-     this.tetramino.applyMatrix (new THREE.Matrix4().makeTranslation(0,6.5,0));
-    }
-
-    //var geometry = new THREE.BoxGeometry( 1, 1, 1 );
-    //var material = new THREE.MeshBasicMaterial( {color: 0x0000FF, wireframe:true, wireframeLinewidth: 2.0});
-    //var cube = new THREE.Mesh( geometry, material );
-    //this.add( cube );
-    /*
-    var matriz = [[V,V,V,V,V,V,V,V,V,V,V,V],[V,V,V,V,V,V,V,V,V,V,V,V],[V,V,V,V,V,V,V,V,V,V,V,V],
-                    [V,V,V,V,V,V,V,V,V,V,V,V],[V,V,V,V,V,V,V,V,V,V,V,V],[V,V,V,V,V,V,V,V,V,V,V,V],
-                    [V,V,V,V,V,V,V,V,V,V,V,V],[V,V,V,V,V,V,V,V,V,V,V,V],[V,V,V,V,V,V,V,V,V,V,V,V],
-                    [V,V,V,V,V,V,V,V,V,V,V,V],[V,V,V,V,V,V,V,V,V,V,V,V],[V,V,V,V,V,V,V,V,V,V,V,V],
-                    [V,V,V,V,V,V,V,V,V,V,V,V],[V,V,V,V,V,V,V,V,V,V,V,V],[V,V,V,V,V,V,V,V,V,V,V,V],
-                    [V,V,V,V,V,V,V,V,V,V,V,V],[V,V,V,V,V,V,V,V,V,V,V,V],[V,V,V,V,V,V,V,V,V,V,V,V],
-                ];*/
-
+    this.createtetrimino();
 
     //Creacion del entorno tetris
-        this.createCaja(); //11 ancho * 17 largo
+    this.createCaja(); //11 ancho * 17 largo
+  }
+
+  createtetrimino(){
+      var random = Math.floor(Math.random() * 7) + 1;
+
+      switch (random) {
+          case 1: //tetrimino I
+            this.createtetriminoI();
+            break;
+          case 2: //tetrimino J
+            this.createtetriminoJ();
+            break;
+          case 3: //tetrimino L
+            this.createtetriminoL();
+            break;
+          case 4: //tetrimino S
+            this.createtetriminoS();
+            break;
+          case 5: //tetrimino Z
+            this.createtetriminoZ();
+            break;
+          case 6: //tetrimino O
+            this.createtetriminoO();
+            break;
+          case 7: //tetrimino T
+            this.createtetriminoT();
+            break;
+
+      }
+  }
+
+  createtetriminoI(){
+      this.cuadrado1 = new I();
+      this.cuadrado2 = new I();
+      this.cuadrado3 = new I();
+      this.cuadrado4 = new I();
+
+      //posicion tetrimino en la matriz
+      this.posy1 = 0;
+      this.posx1 = 5;
+
+      this.posy2 = 1;
+      this.posx2 = 5;
+      this.cuadrado2.applyMatrix (new THREE.Matrix4().makeTranslation(0,1,0));
+
+      this.posy2 = 2;
+      this.posx2 = 5;
+      this.cuadrado3.applyMatrix (new THREE.Matrix4().makeTranslation(0,2,0));
+
+      this.posy2 = 3;
+      this.posx2 = 5;
+      this.cuadrado4.applyMatrix (new THREE.Matrix4().makeTranslation(0,3,0));
+
+      this.tetrimino.add(this.cuadrado1);
+      this.tetrimino.add(this.cuadrado2);
+      this.tetrimino.add(this.cuadrado3);
+      this.tetrimino.add(this.cuadrado4);
+      this.objetoRotacion.add(this.tetrimino);
+      this.add(this.objetoRotacion);
+
+      this.tetrimino.applyMatrix(new THREE.Matrix4().makeTranslation(0,5,0));
+  }
+
+  createtetriminoJ(){
+      this.cuadrado1 = new J();
+      this.cuadrado2 = new J();
+      this.cuadrado3 = new J();
+      this.cuadrado4 = new J();
+
+      //posicion tetrimino en la matriz
+      this.posy1 = 0;
+      this.posx1 = 5;
+
+      this.posy2 = 1;
+      this.posx2 = 5;
+      this.cuadrado2.applyMatrix (new THREE.Matrix4().makeTranslation(0,1,0));
+
+      this.posy2 = 2;
+      this.posx2 = 5;
+      this.cuadrado3.applyMatrix (new THREE.Matrix4().makeTranslation(0,2,0));
+
+      this.posy2 = 2;
+      this.posx2 = 4;
+      this.cuadrado4.applyMatrix (new THREE.Matrix4().makeTranslation(1,2,0));
+
+      this.tetrimino.add(this.cuadrado1);
+      this.tetrimino.add(this.cuadrado2);
+      this.tetrimino.add(this.cuadrado3);
+      this.tetrimino.add(this.cuadrado4);
+      this.objetoRotacion.add(this.tetrimino);
+      this.add(this.objetoRotacion);
+      this.tetrimino.applyMatrix(new THREE.Matrix4().makeTranslation(0,6,0));
+  }
+  createtetriminoL(){
+    this.cuadrado1 = new L();
+    this.cuadrado2 = new L();
+    this.cuadrado3 = new L();
+    this.cuadrado4 = new L();
+
+    //posicion tetrimino en la matriz
+    this.posy1 = 0;
+    this.posx1 = 5;
+
+    this.posy2 = 1;
+    this.posx2 = 5;
+    this.cuadrado2.applyMatrix (new THREE.Matrix4().makeTranslation(0,1,0));
+
+    this.posy2 = 2;
+    this.posx2 = 5;
+    this.cuadrado3.applyMatrix (new THREE.Matrix4().makeTranslation(0,2,0));
+
+    this.posy2 = 2;
+    this.posx2 = 6;
+    this.cuadrado4.applyMatrix (new THREE.Matrix4().makeTranslation(-1,2,0));
+
+    this.tetrimino.add(this.cuadrado1);
+    this.tetrimino.add(this.cuadrado2);
+    this.tetrimino.add(this.cuadrado3);
+    this.tetrimino.add(this.cuadrado4);
+    this.objetoRotacion.add(this.tetrimino);
+    this.add(this.objetoRotacion);
+    this.tetrimino.applyMatrix(new THREE.Matrix4().makeTranslation(0.5,7,0));
+  }
+  createtetriminoO(){
+    this.cuadrado1 = new O();
+    this.cuadrado2 = new O();
+    this.cuadrado3 = new O();
+    this.cuadrado4 = new O();
+
+    //posicion tetrimino en la matriz
+    this.posy1 = 0;
+    this.posx1 = 5;
+
+    this.posy2 = 1;
+    this.posx2 = 5;
+    this.cuadrado2.applyMatrix (new THREE.Matrix4().makeTranslation(0,1,0));
+
+    this.posy2 = 0;
+    this.posx2 = 6;
+    this.cuadrado3.applyMatrix (new THREE.Matrix4().makeTranslation(1,0,0));
+
+    this.posy2 = 1;
+    this.posx2 = 6;
+    this.cuadrado4.applyMatrix (new THREE.Matrix4().makeTranslation(1,1,0));
+
+    this.tetrimino.add(this.cuadrado1);
+    this.tetrimino.add(this.cuadrado2);
+    this.tetrimino.add(this.cuadrado3);
+    this.tetrimino.add(this.cuadrado4);
+    this.objetoRotacion.add(this.tetrimino);
+    this.add(this.objetoRotacion);
+    this.tetrimino.applyMatrix(new THREE.Matrix4().makeTranslation(0,7,0));
+  }
+  createtetriminoS(){
+    this.cuadrado1 = new S();
+    this.cuadrado2 = new S();
+    this.cuadrado3 = new S();
+    this.cuadrado4 = new S();
+
+    //posicion tetrimino en la matriz
+    this.posy1 = 0;
+    this.posx1 = 5;
+
+    this.posy2 = 0;
+    this.posx2 = 6;
+    this.cuadrado2.applyMatrix (new THREE.Matrix4().makeTranslation(-1,0,0));
+
+    this.posy2 = 1;
+    this.posx2 = 5;
+    this.cuadrado3.applyMatrix (new THREE.Matrix4().makeTranslation(0,1,0));
+
+    this.posy2 = 1;
+    this.posx2 = 4;
+    this.cuadrado4.applyMatrix (new THREE.Matrix4().makeTranslation(1,1,0));
+
+    this.tetrimino.add(this.cuadrado1);
+    this.tetrimino.add(this.cuadrado2);
+    this.tetrimino.add(this.cuadrado3);
+    this.tetrimino.add(this.cuadrado4);
+    this.objetoRotacion.add(this.tetrimino);
+    this.add(this.objetoRotacion);
+    this.tetrimino.applyMatrix(new THREE.Matrix4().makeTranslation(0,7,0));
+  }
+  createtetriminoZ(){
+      this.cuadrado1 = new Z();
+      this.cuadrado2 = new Z();
+      this.cuadrado3 = new Z();
+      this.cuadrado4 = new Z();
+
+      //posicion tetrimino en la matriz
+      this.posy1 = 0;
+      this.posx1 = 5;
+
+      this.posy2 = 0;
+      this.posx2 = 4;
+      this.cuadrado2.applyMatrix (new THREE.Matrix4().makeTranslation(1,0,0));
+
+      this.posy2 = 1;
+      this.posx2 = 5;
+      this.cuadrado3.applyMatrix (new THREE.Matrix4().makeTranslation(0,1,0));
+
+      this.posy2 = 1;
+      this.posx2 = 6;
+      this.cuadrado4.applyMatrix (new THREE.Matrix4().makeTranslation(-1,1,0));
+
+      this.tetrimino.add(this.cuadrado1);
+      this.tetrimino.add(this.cuadrado2);
+      this.tetrimino.add(this.cuadrado3);
+      this.tetrimino.add(this.cuadrado4);
+      this.objetoRotacion.add(this.tetrimino);
+      this.add(this.tetrimino);
+      this.tetrimino.applyMatrix(new THREE.Matrix4().makeTranslation(0,7,0));
+  }
+  createtetriminoT(){
+      this.cuadrado1 = new T();
+      this.cuadrado2 = new T();
+      this.cuadrado3 = new T();
+      this.cuadrado4 = new T();
+
+      //posicion tetrimino en la matriz
+      this.posy1 = 0;
+      this.posx1 = 5;
+
+      this.posy2 = 0;
+      this.posx2 = 4;
+      this.cuadrado2.applyMatrix (new THREE.Matrix4().makeTranslation(1,0,0));
+
+      this.posy2 = 0;
+      this.posx2 = 6;
+      this.cuadrado3.applyMatrix (new THREE.Matrix4().makeTranslation(-1,0,0));
+
+      this.posy2 = 1;
+      this.posx2 = 5;
+      this.cuadrado4.applyMatrix (new THREE.Matrix4().makeTranslation(0,-1,0));
+
+      this.tetrimino.add(this.cuadrado1);
+      this.tetrimino.add(this.cuadrado2);
+      this.tetrimino.add(this.cuadrado3);
+      this.tetrimino.add(this.cuadrado4);
+      this.objetoRotacion.add(this.tetrimino);
+      this.add(this.objetoRotacion);
+      this.tetrimino.applyMatrix(new THREE.Matrix4().makeTranslation(0,8,0));
   }
 
   createCaja(){
       this.points = [];
-      var ancho = 5.5;
-      var alto = 8.5;
+      var ancho = 6;
+      var alto = 9;
       this.points.push( new THREE.Vector3(-ancho,  alto));
       this.points.push( new THREE.Vector3(ancho,  alto));
       this.points.push( new THREE.Vector3(ancho,  -alto));
@@ -131,36 +350,17 @@ class MyScene extends THREE.Scene {
       var tecla = event.keyCode;
       switch (tecla) {
         case 37: //DERECHA
-          if( this.tetramino.letra == "I" && this.tetramino.moverIzquierda(this.matriz, this.posx, this.posy) ){
-              this.tetramino.position.x -= 1;
-              this.posx--;
-          }
-          else if(this.tetramino.letra != "I"){
-              this.tetramino.position.x -= 1;
-          }
+            this.tetrimino.position.x -= 1;
           break;
         case 38: //ROTA
-          this.tetramino.rotation.z += THREE.Math.degToRad(90);
+            this.tetrimino.rotation.z += THREE.Math.degToRad(90);
+            //this.tetrimino.applyMatrix (new THREE.Matrix4().makeRotationZ(THREE.Math.degToRad(90)));
           break;
         case 39: //IZQUIERDA
-            if( this.tetramino.letra == "I" && this.tetramino.moverDerecha(this.matriz, this.posx, this.posy) ){
-                this.tetramino.position.x += 1;
-                this.posx++;
-            }
-            else if(this.tetramino.letra != "I"){
-                this.tetramino.position.x += 1;
-            }
-          //this.tetramino.position.x += 1;
+            this.tetrimino.position.x += 1;
           break;
         case 40: //BAJA
-            console.log(this.posy + this.matriz[this.posx][this.posy+3+1]);
-            if( this.tetramino.letra == "I" && this.tetramino.moverAbajo(this.matriz, this.posx, this.posy) ){
-                this.tetramino.position.y -= 1;
-                this.posy++;
-            }
-            else if(this.tetramino.letra != "I"){
-                this.tetramino.position.y -= 1;
-            }
+            this.tetrimino.position.y -= 1;
           break;
       }
   };
@@ -168,14 +368,14 @@ class MyScene extends THREE.Scene {
   update () {
       this.cameraControl.update();
 
-      if(this.tetramino.letra == "I"){
+      if(this.cuadrado1.letra == "I"){
           //Comprobar si puedo bajar
           if( this.posy < 17 ){
               if(this.matriz[this.posx][this.posy+1] == "V"){
                   /*var velocidad = 0.5;
                   var tiempoActual = Date.now(); //Tiempo en milisegundos
                   var segundosTranscurridos = (tiempoActual - this.tiempoAnterior)/1000;
-                  this.tetramino.position.y -= (velocidad*segundosTranscurridos);
+                  this.tetrimino.position.y -= (velocidad*segundosTranscurridos);
                   this.tiempoAnterior = tiempoActual;*/
               }
           }
