@@ -11,10 +11,8 @@ class MyScene extends THREE.Scene {
     this.createLights ();
     this.createCamera (unRenderer);
     this.tiempoAnterior = Date.now(); //Tiempo en milisegundos
-    this.tetrimino = new THREE.Object3D();
     this.posicionY = new Array();
     this.posicionX = new Array();
-    this.colocado = false;
     /*
     V - vacio
     I, J, L, O, S, T, Z - forma de los tetriminos
@@ -23,7 +21,7 @@ class MyScene extends THREE.Scene {
     var i, j;
     this.matriz = new Array(14);
     for (i=0; i<this.matriz.length; i++){
-        console.log(i + "\n");
+        //console.log(i + "\n");
          this.matriz[i] = new Array(19);
          for (j=0; j<this.matriz[i].length; j++){
              if(i==0 || j==0 || i==11 || j==18)
@@ -31,21 +29,43 @@ class MyScene extends THREE.Scene {
              else
                this.matriz[i][j] = "V";
 
-             console.log(this.matriz[i][j] + " " + j);
+             //console.log(this.matriz[i][j] + " " + j);
          }
-         console.log("\n");
+        // console.log("\n");
      }
 
     /*this.axis = new THREE.AxesHelper (5);
     this.add (this.axis);*/
 
     this.createtetrimino();
+/*    if(this.cuadrado1.letra == "I"){
+        this.tetrimino.applyMatrix(new THREE.Matrix4().makeTranslation(0,-5,0));
+    }
+    else if(this.cuadrado1.letra == "J"){
+        this.tetrimino.applyMatrix(new THREE.Matrix4().makeTranslation(0,-6,0));
+    }
+    else if(this.cuadrado1.letra == "L"){
+        this.tetrimino.applyMatrix(new THREE.Matrix4().makeTranslation(0,-6.5,0));
+    }
+    else if(this.cuadrado1.letra == "S"){
+        this.tetrimino.applyMatrix(new THREE.Matrix4().makeTranslation(0,-7,0));
+    }
+    else if(this.cuadrado1.letra == "Z"){
+        this.tetrimino.applyMatrix(new THREE.Matrix4().makeTranslation(0,-7,0));
+    }
+    else if(this.cuadrado1.letra == "O"){
+        this.tetrimino.applyMatrix(new THREE.Matrix4().makeTranslation(0,-7,0));
+    }
+    else if(this.cuadrado1.letra == "T"){
+        this.tetrimino.applyMatrix(new THREE.Matrix4().makeTranslation(0,-8, 0));
+    }*/
 
     //Creacion del entorno tetris
     this.createCaja(); //11 ancho * 17 largo
   }
 
   createtetrimino(){
+      this.tetrimino = new THREE.Object3D();
       var random = Math.floor(Math.random() * 7) + 1;
 
       switch (random) {
@@ -343,15 +363,12 @@ class MyScene extends THREE.Scene {
   puedeBajar(){
       var puedeBajar = true;
       var i=0;
-      console.log("Veo si puede bajar");
+      //console.log("Veo si puede bajar");
       for (i=0; i<4; i++){
-          console.log("posicionY: " + [this.posicionY[i]+1] );
-          console.log("posicion matriz: " + this.matriz[this.posicionX[i]][this.posicionY[i]+1] );
+          //console.log("posicionY: " + [this.posicionY[i]+1] );
+          //console.log("posicion matriz: " + this.matriz[this.posicionX[i]][this.posicionY[i]+1] );
           if( this.matriz[this.posicionX[i]][this.posicionY[i]+1] != "V"){
               puedeBajar = false;
-          }
-          else if ( this.matriz[this.posicionX[i]][this.posicionY[i]+1] == "X") {
-              this.colocado = true;
           }
       }
       return puedeBajar;
@@ -429,24 +446,28 @@ class MyScene extends THREE.Scene {
   };
 
   update () {
-      //this.cameraControl.update();
+      this.cameraControl.update();
 
-      var i=0;
-      var puedeBajar = this.puedeBajar();
+    var i=0;
+    var tiempoActual = Date.now(); //Tiempo en milisegundos
+    var segundosTranscurridos = (tiempoActual - this.tiempoAnterior)/1000;
 
-      if( puedeBajar ){
-          var velocidad = 1;
-          var tiempoActual = Date.now(); //Tiempo en milisegundos
-          var segundosTranscurridos = Math.ceil(tiempoActual - this.tiempoAnterior)/1000;
-          var posicion = (velocidad*segundosTranscurridos);
-          this.tetrimino.position.y -= posicion;
-          this.tiempoAnterior = tiempoActual;
+    if(segundosTranscurridos >= 0.2){ //Si no ha transcurrido X segundo(s)
+        var puedeBajar = this.puedeBajar();
+        if(puedeBajar){
+            this.tetrimino.position.y -= 1;
+            this.tiempoAnterior = tiempoActual;
 
-          //bajar posicion tetramino
-          for (i=0; i<4; i++){
-              this.posicionY[i] += posicion;
-          }
-      }
+            //bajar posicion tetramino
+            for (i=0; i<4; i++){
+                this.posicionY[i] += 1;
+            }
+        }
+        else{
+            this.createtetrimino();
+        }
+    }//si puedeBajar
+
   }//cierre update()
 
 }//cierre MyScene
