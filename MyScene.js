@@ -19,12 +19,12 @@ class MyScene extends THREE.Scene {
     X - borde(ocupado)
     */
     var i, j;
-    this.matriz = new Array(14);
-    for (i=0; i<this.matriz.length; i++){
-        //console.log(i + "\n");
+    this.matriz = new Array(13);
+    for (i=-1; i<this.matriz.length; i++){
+        console.log(i + "\n");
          this.matriz[i] = new Array(19);
-         for (j=0; j<this.matriz[i].length; j++){
-             if(i==0 || j==0 || i==11 || j==18)
+         for (j=-1; j<this.matriz[i].length; j++){
+             if(i==-1 || j==-1 || i==12 || j==18)
                 this.matriz[i][j] = "X";
              else
                this.matriz[i][j] = "V";
@@ -365,29 +365,13 @@ class MyScene extends THREE.Scene {
       var i=0;
       //console.log("Veo si puede bajar");
       for (i=0; i<4; i++){
-          //console.log("posicionY: " + [this.posicionY[i]+1] );
-          //console.log("posicion matriz: " + this.matriz[this.posicionX[i]][this.posicionY[i]+1] );
-          if( this.matriz[this.posicionX[i]][this.posicionY[i]+1] != "V"){
+        console.log("posicionX: " + [this.posicionX[i]] + "posicionY: " + [this.posicionY[i]] );
+        console.log("posicion matriz: " + this.matriz[this.posicionX[i]][this.posicionY[i]] + " posicion matriz +1: " + this.matriz[this.posicionX[i]][this.posicionY[i]+1] );
+        if( this.matriz[this.posicionX[i]][this.posicionY[i]+1] != "V"){
               puedeBajar = false;
           }
       }
       return puedeBajar;
-  }
-
-  puedeDerecha(){
-      var puedeDerecha = true;
-      var i=0;
-      console.log("Veo si puede derecha");
-      for (i=0; i<4; i++){
-          console.log("posicionY: " + [this.posicionX[i]-1] );
-          console.log("posicion matriz: " + this.matriz[this.posicionX[i]-1][this.posicionY[i]] );
-          if( this.matriz[this.posicionX[i]-1][this.posicionY[i]] != "V"){
-              puedeDerecha = false;
-          }
-           if ( this.colocado != true)
-              puedeDerecha = false;
-      }
-      return puedeDerecha;
   }
 
   puedeIzquierda(){
@@ -395,15 +379,32 @@ class MyScene extends THREE.Scene {
       var i=0;
       console.log("Veo si puede izquierda");
       for (i=0; i<4; i++){
-          console.log("posicionY: " + [this.posicionX[i]+1] );
-          console.log("posicion matriz: " + this.matriz[this.posicionX[i]+1][this.posicionY[i]] );
+        console.log("posicionX: " + [this.posicionX[i]] + "posicionY: " + [this.posicionY[i]] );
+        console.log("posicion matriz: " + this.matriz[this.posicionX[i]][this.posicionY[i]] + " posicion matriz +1: " + this.matriz[this.posicionX[i]+1][this.posicionY[i]] );
           if( this.matriz[this.posicionX[i]+1][this.posicionY[i]] != "V"){
               puedeIzquierda = false;
           }
-           if ( this.colocado != true)
+           if ( this.colocado == true)
               puedeIzquierda = false;
       }
       return puedeIzquierda;
+  }
+
+  puedeDerecha(){
+      var puedeDerecha = true;
+      var i=0;
+      console.log("Veo si puede derecha");
+      for (i=0; i<4; i++){
+        console.log("posicionX: " + [this.posicionX[i]] + "posicionY: " + [this.posicionY[i]] );
+        console.log("posicion matriz: " + this.matriz[this.posicionX[i]][this.posicionY[i]] + " posicion matriz -1: " + this.matriz[this.posicionX[i]-1][this.posicionY[i]] );
+          if( this.matriz[this.posicionX[i]-1][this.posicionY[i]] != "V"){
+              puedeDerecha = false;
+          }
+          if ( this.colocado == true)
+             puedeDerecha = false;
+
+      }
+      return puedeDerecha;
   }
 
   /*
@@ -416,8 +417,8 @@ class MyScene extends THREE.Scene {
       var i;
       var tecla = event.keyCode;
       switch (tecla) {
-        case 37: //DERECHA
-            if( this.puedeBajar() ){
+        case 37: //IIzquerda
+            if( this.puedeIzquierda() ){
               this.tetrimino.position.x -= 1;
               for (i=0; i<4; i++){
                   this.posicionX[i] += 1;
@@ -428,10 +429,12 @@ class MyScene extends THREE.Scene {
             this.tetrimino.rotation.z += THREE.Math.degToRad(90);
             //this.tetrimino.applyMatrix (new THREE.Matrix4().makeRotationZ(THREE.Math.degToRad(90)));
           break;
-        case 39: //IZQUIERDA
-            this.tetrimino.position.x += 1;
-            for (i=0; i<4; i++){
-                this.posicionX[i] -= 1;
+        case 39: //Derecha
+            if( this.puedeDerecha() ){
+              this.tetrimino.position.x += 1;
+              for (i=0; i<4; i++){
+                  this.posicionX[i] -= 1;
+              }
             }
           break;
         case 40: //BAJA
