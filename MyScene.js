@@ -13,6 +13,7 @@ class MyScene extends THREE.Scene {
     this.tiempoAnterior = Date.now(); //Tiempo en milisegundos
     this.posicionY = new Array();
     this.posicionX = new Array();
+    this.colocado = false;
     /*
     V - vacio
     I, J, L, O, S, T, Z - forma de los tetriminos
@@ -21,7 +22,7 @@ class MyScene extends THREE.Scene {
     var i, j;
     this.matriz = new Array(13);
     for (i=-1; i<this.matriz.length; i++){
-        console.log(i + "\n");
+        //console.log(i + "\n");
          this.matriz[i] = new Array(19);
          for (j=-1; j<this.matriz[i].length; j++){
              if(i==-1 || j==-1 || i==12 || j==18)
@@ -38,27 +39,6 @@ class MyScene extends THREE.Scene {
     this.add (this.axis);*/
 
     this.createtetrimino();
-/*    if(this.cuadrado1.letra == "I"){
-        this.tetrimino.applyMatrix(new THREE.Matrix4().makeTranslation(0,-5,0));
-    }
-    else if(this.cuadrado1.letra == "J"){
-        this.tetrimino.applyMatrix(new THREE.Matrix4().makeTranslation(0,-6,0));
-    }
-    else if(this.cuadrado1.letra == "L"){
-        this.tetrimino.applyMatrix(new THREE.Matrix4().makeTranslation(0,-6.5,0));
-    }
-    else if(this.cuadrado1.letra == "S"){
-        this.tetrimino.applyMatrix(new THREE.Matrix4().makeTranslation(0,-7,0));
-    }
-    else if(this.cuadrado1.letra == "Z"){
-        this.tetrimino.applyMatrix(new THREE.Matrix4().makeTranslation(0,-7,0));
-    }
-    else if(this.cuadrado1.letra == "O"){
-        this.tetrimino.applyMatrix(new THREE.Matrix4().makeTranslation(0,-7,0));
-    }
-    else if(this.cuadrado1.letra == "T"){
-        this.tetrimino.applyMatrix(new THREE.Matrix4().makeTranslation(0,-8, 0));
-    }*/
 
     //Creacion del entorno tetris
     this.createCaja(); //11 ancho * 17 largo
@@ -101,19 +81,19 @@ class MyScene extends THREE.Scene {
       this.cuadrado4 = new I();
 
       //posicion tetrimino en la matriz
-      this.posicionX[0] = 5;
-      this.posicionY[0] = 0;
+      this.cuadrado1.posX = 5;
+      this.cuadrado1.posY = 0;
 
-      this.posicionX[1] = 5;
-      this.posicionY[1] = 1;
+      this.cuadrado2.posX = 5;
+      this.cuadrado2.posY = 1;
       this.cuadrado2.applyMatrix (new THREE.Matrix4().makeTranslation(0,1,0));
 
-      this.posicionX[2] = 5;
-      this.posicionY[2] = 2;
+      this.cuadrado3.posX = 5;
+      this.cuadrado3.posY = 2;
       this.cuadrado3.applyMatrix (new THREE.Matrix4().makeTranslation(0,2,0));
 
-      this.posicionX[3] = 5;
-      this.posicionY[3] = 3;
+      this.cuadrado4.posX = 5;
+      this.cuadrado4.posY = 3;
       this.cuadrado4.applyMatrix (new THREE.Matrix4().makeTranslation(0,3,0));
 
       this.tetrimino.add(this.cuadrado1);
@@ -132,19 +112,19 @@ class MyScene extends THREE.Scene {
       this.cuadrado4 = new J();
 
       //posicion tetrimino en la matriz
-      this.posicionX[0] = 5;
-      this.posicionY[0] = 0;
+      this.cuadrado1.posX = 5;
+      this.cuadrado1.posY = 0;
 
-      this.posicionX[1] = 5;
-      this.posicionY[1] = 1;
+      this.cuadrado2.posX = 5;
+      this.cuadrado2.posY = 1;
       this.cuadrado2.applyMatrix (new THREE.Matrix4().makeTranslation(0,1,0));
 
-      this.posicionX[2] = 5;
-      this.posicionY[2] = 2;
+      this.cuadrado3.posX = 5;
+      this.cuadrado3.posY = 2;
       this.cuadrado3.applyMatrix (new THREE.Matrix4().makeTranslation(0,2,0));
 
-      this.posicionX[3] = 4;
-      this.posicionY[3] = 2;
+      this.cuadrado4.posX = 4;
+      this.cuadrado4.posY = 2;
       this.cuadrado4.applyMatrix (new THREE.Matrix4().makeTranslation(1,2,0));
 
       this.tetrimino.add(this.cuadrado1);
@@ -154,6 +134,12 @@ class MyScene extends THREE.Scene {
       this.add(this.tetrimino);
       this.tetrimino.applyMatrix(new THREE.Matrix4().makeTranslation(0,6,0));
   }
+//objeto o clase que almacene todo lo que está en esa linea
+
+  deleteLinea(){
+      //scene.remove
+  }
+
   createtetriminoL(){
     this.cuadrado1 = new L();
     this.cuadrado2 = new L();
@@ -161,19 +147,19 @@ class MyScene extends THREE.Scene {
     this.cuadrado4 = new L();
 
     //posicion tetrimino en la matriz
-    this.posicionX[0] = 5;
-    this.posicionY[0] = 0;
+    this.cuadrado1.posX = 5;
+    this.cuadrado1.posY = 0;
 
-    this.posicionX[1] = 5;
-    this.posicionY[1] = 1;
+    this.cuadrado2.posX = 5;
+    this.cuadrado2.posY = 1;
     this.cuadrado2.applyMatrix (new THREE.Matrix4().makeTranslation(0,1,0));
 
-    this.posicionX[2] = 5;
-    this.posicionY[2] = 2;
+    this.cuadrado3.posX = 5;
+    this.cuadrado3.posY = 2;
     this.cuadrado3.applyMatrix (new THREE.Matrix4().makeTranslation(0,2,0));
 
-    this.posicionX[3] = 6;
-    this.posicionY[3] = 2;
+    this.cuadrado4.posX = 6;
+    this.cuadrado4.posY = 2;
     this.cuadrado4.applyMatrix (new THREE.Matrix4().makeTranslation(-1,2,0));
 
     this.tetrimino.add(this.cuadrado1);
@@ -181,7 +167,7 @@ class MyScene extends THREE.Scene {
     this.tetrimino.add(this.cuadrado3);
     this.tetrimino.add(this.cuadrado4);
     this.add(this.tetrimino);
-    this.tetrimino.applyMatrix(new THREE.Matrix4().makeTranslation(0.5,6.5,0));
+    this.tetrimino.applyMatrix(new THREE.Matrix4().makeTranslation(0.5,6,0));
   }
   createtetriminoO(){
     this.cuadrado1 = new O();
@@ -190,20 +176,20 @@ class MyScene extends THREE.Scene {
     this.cuadrado4 = new O();
 
     //posicion tetrimino en la matriz
-    this.posicionX[0] = 5;
-    this.posicionY[0] = 0;
+    this.cuadrado1.posX = 5;
+    this.cuadrado1.posY = 0;
 
-    this.posicionX[1] = 5;
-    this.posicionY[1] = 1;
+    this.cuadrado2.posX = 5;
+    this.cuadrado2.posY = 1;
 
     this.cuadrado2.applyMatrix (new THREE.Matrix4().makeTranslation(0,1,0));
 
-    this.posicionX[2] = 6;
-    this.posicionY[2] = 0;
+    this.cuadrado3.posX = 6;
+    this.cuadrado3.posY = 0;
     this.cuadrado3.applyMatrix (new THREE.Matrix4().makeTranslation(1,0,0));
 
-    this.posicionX[3] = 6;
-    this.posicionY[3] = 1;
+    this.cuadrado4.posX = 6;
+    this.cuadrado4.posY = 1;
     this.cuadrado4.applyMatrix (new THREE.Matrix4().makeTranslation(1,1,0));
 
     this.tetrimino.add(this.cuadrado1);
@@ -220,19 +206,19 @@ class MyScene extends THREE.Scene {
     this.cuadrado4 = new S();
 
     //posicion tetrimino en la matriz
-    this.posicionX[0] = 5;
-    this.posicionY[0] = 0;
+    this.cuadrado1.posX = 5;
+    this.cuadrado1.posY = 0;
 
-    this.posicionX[1] = 6;
-    this.posicionY[1] = 0;
+    this.cuadrado2.posX = 6;
+    this.cuadrado2.posY = 0;
     this.cuadrado2.applyMatrix (new THREE.Matrix4().makeTranslation(-1,0,0));
 
-    this.posicionX[2] = 5;
-    this.posicionY[2] = 1;
+    this.cuadrado3.posX = 5;
+    this.cuadrado3.posY = 1;
     this.cuadrado3.applyMatrix (new THREE.Matrix4().makeTranslation(0,1,0));
 
-    this.posicionX[3] = 4;
-    this.posicionY[3] = 1;
+    this.cuadrado4.posX = 4;
+    this.cuadrado4.posY = 1;
     this.cuadrado4.applyMatrix (new THREE.Matrix4().makeTranslation(1,1,0));
 
     this.tetrimino.add(this.cuadrado1);
@@ -249,19 +235,19 @@ class MyScene extends THREE.Scene {
       this.cuadrado4 = new Z();
 
       //posicion tetrimino en la matriz
-      this.posicionX[0] = 5;
-      this.posicionY[0] = 0;
+      this.cuadrado1.posX = 5;
+      this.cuadrado1.posY = 0;
 
-      this.posicionX[1] = 4;
-      this.posicionY[1] = 0;
+      this.cuadrado2.posX = 4;
+      this.cuadrado2.posY = 0;
       this.cuadrado2.applyMatrix (new THREE.Matrix4().makeTranslation(1,0,0));
 
-      this.posicionX[2] = 5;
-      this.posicionY[2] = 1;
+      this.cuadrado3.posX = 5;
+      this.cuadrado3.posY = 1;
       this.cuadrado3.applyMatrix (new THREE.Matrix4().makeTranslation(0,1,0));
 
-      this.posicionX[3] = 6;
-      this.posicionY[3] = 1;
+      this.cuadrado4.posX = 6;
+      this.cuadrado4.posY = 1;
       this.cuadrado4.applyMatrix (new THREE.Matrix4().makeTranslation(-1,1,0));
 
       this.tetrimino.add(this.cuadrado1);
@@ -278,19 +264,19 @@ class MyScene extends THREE.Scene {
       this.cuadrado4 = new T();
 
       //posicion tetrimino en la matriz
-      this.posicionX[0] = 5;
-      this.posicionY[0] = 0;
+      this.cuadrado1.posX = 5;
+      this.cuadrado1.posY = 0;
 
-      this.posicionX[1] = 4;
-      this.posicionY[1] = 0;
+      this.cuadrado2.posX = 4;
+      this.cuadrado2.posY = 0;
       this.cuadrado2.applyMatrix (new THREE.Matrix4().makeTranslation(1,0,0));
 
-      this.posicionX[2] = 6;
-      this.posicionY[2] = 0;
+      this.cuadrado3.posX = 6;
+      this.cuadrado3.posY = 0;
       this.cuadrado3.applyMatrix (new THREE.Matrix4().makeTranslation(-1,0,0));
 
-      this.posicionX[3] = 5;
-      this.posicionY[3] = 1;
+      this.cuadrado4.posX = 5;
+      this.cuadrado4.posY = 1;
 
       this.cuadrado4.applyMatrix (new THREE.Matrix4().makeTranslation(0,-1,0));
 
@@ -362,48 +348,43 @@ class MyScene extends THREE.Scene {
 
   puedeBajar(){
       var puedeBajar = true;
-      var i=0;
-      //console.log("Veo si puede bajar");
-      for (i=0; i<4; i++){
-        console.log("posicionX: " + [this.posicionX[i]] + "posicionY: " + [this.posicionY[i]] );
-        console.log("posicion matriz: " + this.matriz[this.posicionX[i]][this.posicionY[i]] + " posicion matriz +1: " + this.matriz[this.posicionX[i]][this.posicionY[i]+1] );
-        if( this.matriz[this.posicionX[i]][this.posicionY[i]+1] != "V"){
+      if(this.matriz[this.cuadrado1.posX][this.cuadrado1.posY+1] != "V" ||
+        this.matriz[this.cuadrado2.posX][this.cuadrado2.posY+1] != "V" ||
+        this.matriz[this.cuadrado3.posX][this.cuadrado3.posY+1] != "V" ||
+        this.matriz[this.cuadrado4.posX][this.cuadrado4.posY+1] != "V")
+        {
               puedeBajar = false;
           }
-      }
+          console.log(puedeBajar);
       return puedeBajar;
   }
 
   puedeIzquierda(){
       var puedeIzquierda = true;
-      var i=0;
-      console.log("Veo si puede izquierda");
-      for (i=0; i<4; i++){
-        console.log("posicionX: " + [this.posicionX[i]] + "posicionY: " + [this.posicionY[i]] );
-        console.log("posicion matriz: " + this.matriz[this.posicionX[i]][this.posicionY[i]] + " posicion matriz +1: " + this.matriz[this.posicionX[i]+1][this.posicionY[i]] );
-          if( this.matriz[this.posicionX[i]+1][this.posicionY[i]] != "V"){
-              puedeIzquierda = false;
-          }
-           if ( this.colocado == true)
+
+      if(this.matriz[this.cuadrado1.posX+1][this.cuadrado1.posY] != "V" ||
+        this.matriz[this.cuadrado2.posX+1][this.cuadrado2.posY] != "V" ||
+        this.matriz[this.cuadrado3.posX+1][this.cuadrado3.posY] != "V" ||
+        this.matriz[this.cuadrado4.posX+1][this.cuadrado4.posY] != "V")
+        {
               puedeIzquierda = false;
       }
+      console.log(puedeIzquierda);
       return puedeIzquierda;
   }
 
   puedeDerecha(){
       var puedeDerecha = true;
-      var i=0;
-      console.log("Veo si puede derecha");
-      for (i=0; i<4; i++){
-        console.log("posicionX: " + [this.posicionX[i]] + "posicionY: " + [this.posicionY[i]] );
-        console.log("posicion matriz: " + this.matriz[this.posicionX[i]][this.posicionY[i]] + " posicion matriz -1: " + this.matriz[this.posicionX[i]-1][this.posicionY[i]] );
-          if( this.matriz[this.posicionX[i]-1][this.posicionY[i]] != "V"){
-              puedeDerecha = false;
-          }
-          if ( this.colocado == true)
-             puedeDerecha = false;
 
-      }
+      if(this.matriz[this.cuadrado1.posX-1][this.cuadrado1.posY] != "V" ||
+        this.matriz[this.cuadrado2.posX-1][this.cuadrado2.posY] != "V" ||
+        this.matriz[this.cuadrado3.posX-1][this.cuadrado3.posY] != "V" ||
+        this.matriz[this.cuadrado4.posX-1][this.cuadrado4.posY] != "V")
+        {
+              puedeDerecha = false;
+         }
+         console.log(puedeDerecha);
+        console.log(this.matriz);
       return puedeDerecha;
   }
 
@@ -417,12 +398,13 @@ class MyScene extends THREE.Scene {
       var i;
       var tecla = event.keyCode;
       switch (tecla) {
-        case 37: //IIzquerda
+        case 37: //Izquerda
             if( this.puedeIzquierda() ){
               this.tetrimino.position.x -= 1;
-              for (i=0; i<4; i++){
-                  this.posicionX[i] += 1;
-              }
+              this.cuadrado1.posX += 1;
+              this.cuadrado2.posX += 1;
+              this.cuadrado3.posX += 1;
+              this.cuadrado4.posX += 1;
             }
           break;
         case 38: //ROTA
@@ -432,17 +414,19 @@ class MyScene extends THREE.Scene {
         case 39: //Derecha
             if( this.puedeDerecha() ){
               this.tetrimino.position.x += 1;
-              for (i=0; i<4; i++){
-                  this.posicionX[i] -= 1;
-              }
+              this.cuadrado1.posX -= 1;
+              this.cuadrado2.posX -= 1;
+              this.cuadrado3.posX -= 1;
+              this.cuadrado4.posX -= 1;
             }
           break;
         case 40: //BAJA
             if( this.puedeBajar() ){
                 this.tetrimino.position.y -= 1;
-                for (i=0; i<4; i++){
-                    this.posicionY[i] += 1;
-                }
+                this.cuadrado1.posY += 1;
+                this.cuadrado2.posY += 1;
+                this.cuadrado3.posY += 1;
+                this.cuadrado4.posY += 1;
             }
           break;
       }
@@ -455,22 +439,22 @@ class MyScene extends THREE.Scene {
     var tiempoActual = Date.now(); //Tiempo en milisegundos
     var segundosTranscurridos = (tiempoActual - this.tiempoAnterior)/1000;
 
-    if(segundosTranscurridos >= 0.2){ //Si no ha transcurrido X segundo(s)
+    /*if(segundosTranscurridos >= 0.2){ //Si no ha transcurrido X segundo(s)
         var puedeBajar = this.puedeBajar();
         if(puedeBajar){
             this.tetrimino.position.y -= 1;
             this.tiempoAnterior = tiempoActual;
 
-            //bajar posicion tetramino
-            for (i=0; i<4; i++){
-                this.posicionY[i] += 1;
-            }
+            this.cuadrado1.posY += 1;
+            this.cuadrado2.posY += 1;
+            this.cuadrado3.posY += 1;
+            this.cuadrado4.posY += 1;
         }
         else{
             this.createtetrimino();
         }
-    }//si puedeBajar
-
+    }//si ha pasado tiempo
+*/
   }//cierre update()
 
 }//cierre MyScene
