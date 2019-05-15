@@ -440,8 +440,10 @@ class MyScene extends THREE.Scene {
             this.cuadrado4.posY += 1;
         }
         else{
-
-
+            this.matriz[this.cuadrado1.posX][this.cuadrado1.posY] = this.cuadrado1.letra;
+            this.matriz[this.cuadrado2.posX][this.cuadrado2.posY] = this.cuadrado2.letra;
+            this.matriz[this.cuadrado3.posX][this.cuadrado3.posY] = this.cuadrado3.letra;
+            this.matriz[this.cuadrado4.posX][this.cuadrado4.posY] = this.cuadrado4.letra;
 
             this.remove(this.cuadrado1);
             this.colocados.add(this.cuadrado1);
@@ -456,6 +458,8 @@ class MyScene extends THREE.Scene {
             this.colocados.add(this.cuadrado4);
             this.cuadrado4.position.set(5-this.cuadrado4.posX, 8-this.cuadrado4.posY, 0);
             this.createtetrimino();
+
+            this.colocados.comprobarFilas();
         }
     }//si ha pasado tiempo
 
