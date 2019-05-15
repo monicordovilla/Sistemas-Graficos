@@ -11,9 +11,8 @@ class MyScene extends THREE.Scene {
     this.createLights ();
     this.createCamera (unRenderer);
     this.tiempoAnterior = Date.now(); //Tiempo en milisegundos
-    this.posicionY = new Array();
-    this.posicionX = new Array();
-    this.colocado = false;
+    this.colocados = new tetriminosColocados();
+    this.add(this.colocados);
     /*
     V - vacio
     I, J, L, O, S, T, Z - forma de los tetriminos
@@ -42,6 +41,7 @@ class MyScene extends THREE.Scene {
 
     //Creacion del entorno tetris
     this.createCaja(); //11 ancho * 17 largo
+
   }
 
   createtetrimino(){
@@ -72,6 +72,9 @@ class MyScene extends THREE.Scene {
             break;
 
       }
+      this.tetrimino.position.set(0 , 8, 0);
+
+
   }
 
   createtetriminoI(){
@@ -86,23 +89,21 @@ class MyScene extends THREE.Scene {
 
       this.cuadrado2.posX = 5;
       this.cuadrado2.posY = 1;
-      this.cuadrado2.applyMatrix (new THREE.Matrix4().makeTranslation(0,1,0));
+      this.cuadrado2.applyMatrix (new THREE.Matrix4().makeTranslation(0,-1,0));
 
       this.cuadrado3.posX = 5;
       this.cuadrado3.posY = 2;
-      this.cuadrado3.applyMatrix (new THREE.Matrix4().makeTranslation(0,2,0));
+      this.cuadrado3.applyMatrix (new THREE.Matrix4().makeTranslation(0,-2,0));
 
       this.cuadrado4.posX = 5;
       this.cuadrado4.posY = 3;
-      this.cuadrado4.applyMatrix (new THREE.Matrix4().makeTranslation(0,3,0));
+      this.cuadrado4.applyMatrix (new THREE.Matrix4().makeTranslation(0,-3,0));
 
       this.tetrimino.add(this.cuadrado1);
       this.tetrimino.add(this.cuadrado2);
       this.tetrimino.add(this.cuadrado3);
       this.tetrimino.add(this.cuadrado4);
       this.add(this.tetrimino);
-
-      this.tetrimino.applyMatrix(new THREE.Matrix4().makeTranslation(0,5,0));
   }
 
   createtetriminoJ(){
@@ -117,27 +118,21 @@ class MyScene extends THREE.Scene {
 
       this.cuadrado2.posX = 5;
       this.cuadrado2.posY = 1;
-      this.cuadrado2.applyMatrix (new THREE.Matrix4().makeTranslation(0,1,0));
+      this.cuadrado2.applyMatrix (new THREE.Matrix4().makeTranslation(0,-1,0));
 
       this.cuadrado3.posX = 5;
       this.cuadrado3.posY = 2;
-      this.cuadrado3.applyMatrix (new THREE.Matrix4().makeTranslation(0,2,0));
+      this.cuadrado3.applyMatrix (new THREE.Matrix4().makeTranslation(0,-2,0));
 
       this.cuadrado4.posX = 4;
       this.cuadrado4.posY = 2;
-      this.cuadrado4.applyMatrix (new THREE.Matrix4().makeTranslation(1,2,0));
+      this.cuadrado4.applyMatrix (new THREE.Matrix4().makeTranslation(1,-2,0));
 
       this.tetrimino.add(this.cuadrado1);
       this.tetrimino.add(this.cuadrado2);
       this.tetrimino.add(this.cuadrado3);
       this.tetrimino.add(this.cuadrado4);
       this.add(this.tetrimino);
-      this.tetrimino.applyMatrix(new THREE.Matrix4().makeTranslation(0,6,0));
-  }
-//objeto o clase que almacene todo lo que está en esa linea
-
-  deleteLinea(){
-      //scene.remove
   }
 
   createtetriminoL(){
@@ -152,22 +147,21 @@ class MyScene extends THREE.Scene {
 
     this.cuadrado2.posX = 5;
     this.cuadrado2.posY = 1;
-    this.cuadrado2.applyMatrix (new THREE.Matrix4().makeTranslation(0,1,0));
+    this.cuadrado2.applyMatrix (new THREE.Matrix4().makeTranslation(0,-1,0));
 
     this.cuadrado3.posX = 5;
     this.cuadrado3.posY = 2;
-    this.cuadrado3.applyMatrix (new THREE.Matrix4().makeTranslation(0,2,0));
+    this.cuadrado3.applyMatrix (new THREE.Matrix4().makeTranslation(0,-2,0));
 
     this.cuadrado4.posX = 6;
     this.cuadrado4.posY = 2;
-    this.cuadrado4.applyMatrix (new THREE.Matrix4().makeTranslation(-1,2,0));
+    this.cuadrado4.applyMatrix (new THREE.Matrix4().makeTranslation(-1,-2,0));
 
     this.tetrimino.add(this.cuadrado1);
     this.tetrimino.add(this.cuadrado2);
     this.tetrimino.add(this.cuadrado3);
     this.tetrimino.add(this.cuadrado4);
     this.add(this.tetrimino);
-    this.tetrimino.applyMatrix(new THREE.Matrix4().makeTranslation(0.5,6,0));
   }
   createtetriminoO(){
     this.cuadrado1 = new O();
@@ -181,23 +175,21 @@ class MyScene extends THREE.Scene {
 
     this.cuadrado2.posX = 5;
     this.cuadrado2.posY = 1;
-
-    this.cuadrado2.applyMatrix (new THREE.Matrix4().makeTranslation(0,1,0));
+    this.cuadrado2.applyMatrix (new THREE.Matrix4().makeTranslation(0,-1,0));
 
     this.cuadrado3.posX = 6;
     this.cuadrado3.posY = 0;
-    this.cuadrado3.applyMatrix (new THREE.Matrix4().makeTranslation(1,0,0));
+    this.cuadrado3.applyMatrix (new THREE.Matrix4().makeTranslation(-1,0,0));
 
     this.cuadrado4.posX = 6;
     this.cuadrado4.posY = 1;
-    this.cuadrado4.applyMatrix (new THREE.Matrix4().makeTranslation(1,1,0));
+    this.cuadrado4.applyMatrix (new THREE.Matrix4().makeTranslation(-1,-1,0));
 
     this.tetrimino.add(this.cuadrado1);
     this.tetrimino.add(this.cuadrado2);
     this.tetrimino.add(this.cuadrado3);
     this.tetrimino.add(this.cuadrado4);
     this.add(this.tetrimino);
-    this.tetrimino.applyMatrix(new THREE.Matrix4().makeTranslation(0,7,0));
   }
   createtetriminoS(){
     this.cuadrado1 = new S();
@@ -215,18 +207,17 @@ class MyScene extends THREE.Scene {
 
     this.cuadrado3.posX = 5;
     this.cuadrado3.posY = 1;
-    this.cuadrado3.applyMatrix (new THREE.Matrix4().makeTranslation(0,1,0));
+    this.cuadrado3.applyMatrix (new THREE.Matrix4().makeTranslation(0,-1,0));
 
     this.cuadrado4.posX = 4;
     this.cuadrado4.posY = 1;
-    this.cuadrado4.applyMatrix (new THREE.Matrix4().makeTranslation(1,1,0));
+    this.cuadrado4.applyMatrix (new THREE.Matrix4().makeTranslation(1,-1,0));
 
     this.tetrimino.add(this.cuadrado1);
     this.tetrimino.add(this.cuadrado2);
     this.tetrimino.add(this.cuadrado3);
     this.tetrimino.add(this.cuadrado4);
     this.add(this.tetrimino);
-    this.tetrimino.applyMatrix(new THREE.Matrix4().makeTranslation(0,7,0));
   }
   createtetriminoZ(){
       this.cuadrado1 = new Z();
@@ -244,18 +235,17 @@ class MyScene extends THREE.Scene {
 
       this.cuadrado3.posX = 5;
       this.cuadrado3.posY = 1;
-      this.cuadrado3.applyMatrix (new THREE.Matrix4().makeTranslation(0,1,0));
+      this.cuadrado3.applyMatrix (new THREE.Matrix4().makeTranslation(0,-1,0));
 
       this.cuadrado4.posX = 6;
       this.cuadrado4.posY = 1;
-      this.cuadrado4.applyMatrix (new THREE.Matrix4().makeTranslation(-1,1,0));
+      this.cuadrado4.applyMatrix (new THREE.Matrix4().makeTranslation(-1,-1,0));
 
       this.tetrimino.add(this.cuadrado1);
       this.tetrimino.add(this.cuadrado2);
       this.tetrimino.add(this.cuadrado3);
       this.tetrimino.add(this.cuadrado4);
       this.add(this.tetrimino);
-      this.tetrimino.applyMatrix(new THREE.Matrix4().makeTranslation(0,7,0));
   }
   createtetriminoT(){
       this.cuadrado1 = new T();
@@ -285,7 +275,6 @@ class MyScene extends THREE.Scene {
       this.tetrimino.add(this.cuadrado3);
       this.tetrimino.add(this.cuadrado4);
       this.add(this.tetrimino);
-      this.tetrimino.applyMatrix(new THREE.Matrix4().makeTranslation(0,8,0));
   }
 
   createCaja(){
@@ -439,7 +428,7 @@ class MyScene extends THREE.Scene {
     var tiempoActual = Date.now(); //Tiempo en milisegundos
     var segundosTranscurridos = (tiempoActual - this.tiempoAnterior)/1000;
 
-    /*if(segundosTranscurridos >= 0.2){ //Si no ha transcurrido X segundo(s)
+    if(segundosTranscurridos >= 0.2){ //Si no ha transcurrido X segundo(s)
         var puedeBajar = this.puedeBajar();
         if(puedeBajar){
             this.tetrimino.position.y -= 1;
@@ -451,10 +440,25 @@ class MyScene extends THREE.Scene {
             this.cuadrado4.posY += 1;
         }
         else{
+
+
+
+            this.remove(this.cuadrado1);
+            this.colocados.add(this.cuadrado1);
+            this.cuadrado1.position.set(5-this.cuadrado1.posX, 8-this.cuadrado1.posY, 0);
+            this.remove(this.cuadrado2);
+            this.colocados.add(this.cuadrado2);
+            this.cuadrado2.position.set(5-this.cuadrado2.posX, 8-this.cuadrado2.posY, 0);
+            this.remove(this.cuadrado3);
+            this.colocados.add(this.cuadrado3);
+            this.cuadrado3.position.set(5-this.cuadrado3.posX, 8-this.cuadrado3.posY, 0);
+            this.remove(this.cuadrado4);
+            this.colocados.add(this.cuadrado4);
+            this.cuadrado4.position.set(5-this.cuadrado4.posX, 8-this.cuadrado4.posY, 0);
             this.createtetrimino();
         }
     }//si ha pasado tiempo
-*/
+
   }//cierre update()
 
 }//cierre MyScene
