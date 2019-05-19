@@ -47,7 +47,8 @@ class MyScene extends THREE.Scene {
   createtetrimino(){
       this.tetrimino = new THREE.Object3D();
       var random = Math.floor(Math.random() * 7) + 1;
-
+     this.createtetriminoI();
+/*
       switch (random) {
           case 1: //tetrimino I
             this.createtetriminoI();
@@ -70,8 +71,7 @@ class MyScene extends THREE.Scene {
           case 7: //tetrimino T
             this.createtetriminoT();
             break;
-
-      }
+      }*/
       this.tetrimino.position.set(0 , 8, 0);
 
 
@@ -344,7 +344,6 @@ class MyScene extends THREE.Scene {
         {
               puedeBajar = false;
           }
-          console.log(puedeBajar);
       return puedeBajar;
   }
 
@@ -358,7 +357,6 @@ class MyScene extends THREE.Scene {
         {
               puedeIzquierda = false;
       }
-      console.log(puedeIzquierda);
       return puedeIzquierda;
   }
 
@@ -372,7 +370,6 @@ class MyScene extends THREE.Scene {
         {
               puedeDerecha = false;
          }
-         console.log(puedeDerecha);
         console.log(this.matriz);
       return puedeDerecha;
   }
@@ -397,8 +394,90 @@ class MyScene extends THREE.Scene {
             }
           break;
         case 38: //ROTA
-            this.tetrimino.rotation.z += THREE.Math.degToRad(90);
-            //this.tetrimino.applyMatrix (new THREE.Matrix4().makeRotationZ(THREE.Math.degToRad(90)));
+        var angulo = THREE.Math.degToRad(90);
+            switch (this.cuadrado1.letra) {
+                case "I":
+                    if(this.cuadrado1.posX == this.cuadrado2.posX) {
+                      this.cuadrado1.posX -=1;
+                      this.cuadrado2.posX = this.cuadrado1.posX+1;
+                      this.cuadrado2.posY = this.cuadrado1.posY;
+                      this.cuadrado3.posX = this.cuadrado2.posX+1;
+                      this.cuadrado3.posY = this.cuadrado1.posY;
+                      this.cuadrado4.posX = this.cuadrado3.posX+1;
+                      this.cuadrado4.posY = this.cuadrado1.posY;
+                  }
+                    else {
+                      this.cuadrado1.posY +=1;
+                      this.cuadrado2.posY = this.cuadrado1.posY-1;
+                      this.cuadrado2.posX = this.cuadrado1.posX;
+                      this.cuadrado3.posY = this.cuadrado2.posY-1;
+                      this.cuadrado3.posX = this.cuadrado1.posX;
+                      this.cuadrado4.posY = this.cuadrado3.posY-1;
+                      this.cuadrado4.posX = this.cuadrado1.posX;
+                  }
+                    break;
+                case "J":
+                    if(this.cuadrado1.posX == this.cuadrado2.posX) {
+                      this.cuadrado1.posX -=1;
+                      this.cuadrado2.posX = this.cuadrado1.posX+1;
+                      this.cuadrado2.posY = this.cuadrado1.posY;
+                      this.cuadrado3.posX = this.cuadrado2.posX+1;
+                      this.cuadrado3.posY = this.cuadrado1.posY;
+                      this.cuadrado4.posX = this.cuadrado3.posX;
+                      this.cuadrado4.posY = this.cuadrado3.posY+1;
+                  }
+                    else {
+                      this.cuadrado1.posY +=1;
+                      this.cuadrado2.posY = this.cuadrado1.posY-1;
+                      this.cuadrado2.posX = this.cuadrado1.posX;
+                      this.cuadrado3.posY = this.cuadrado2.posY-1;
+                      this.cuadrado3.posX = this.cuadrado1.posX;
+                      this.cuadrado4.posY = this.cuadrado3.posY;
+                      this.cuadrado4.posX = this.cuadrado3.posX+1;
+                    }
+                    break;
+                case "L":
+                    if(this.cuadrado1.posX == this.cuadrado2.posX) {
+                      this.cuadrado1.posX -=1;
+                      this.cuadrado2.posX = this.cuadrado1.posX+1;
+                      this.cuadrado2.posY = this.cuadrado1.posY;
+                      this.cuadrado3.posX = this.cuadrado2.posX+1;
+                      this.cuadrado3.posY = this.cuadrado1.posY;
+                      this.cuadrado4.posX = this.cuadrado3.posX;
+                      this.cuadrado4.posY = this.cuadrado3.posY-1;
+                  }
+                    else {
+                      this.cuadrado1.posY +=1;
+                      this.cuadrado2.posY = this.cuadrado1.posY-1;
+                      this.cuadrado2.posX = this.cuadrado1.posX;
+                      this.cuadrado3.posY = this.cuadrado2.posY-1;
+                      this.cuadrado3.posX = this.cuadrado1.posX;
+                      this.cuadrado4.posY = this.cuadrado3.posY;
+                      this.cuadrado4.posX = this.cuadrado3.posX-1;
+                    }
+                    break;
+
+                case "Z":
+                    if(this.cuadrado1.posX == this.cuadrado2.posX) {
+                      this.cuadrado1.posX -=1;
+                      this.cuadrado1.posY -=1;
+                      this.cuadrado3.posX = this.cuadrado3.posX-1;
+                      this.cuadrado3.posY = this.cuadrado3.posY+1;
+                      this.cuadrado4.posX = this.cuadrado3.posX;
+                      this.cuadrado4.posY = this.cuadrado3.posY+2;
+                  }
+                    else {
+                      this.cuadrado1.posY +=1;
+                      this.cuadrado2.posY = this.cuadrado1.posY-1;
+                      this.cuadrado2.posX = this.cuadrado1.posX;
+                      this.cuadrado3.posY = this.cuadrado2.posY;
+                      this.cuadrado3.posX = this.cuadrado1.posX+1;
+                      this.cuadrado4.posY = this.cuadrado3.posY-1;
+                      this.cuadrado4.posX = this.cuadrado3.posX;
+                    }
+                    break;
+            }
+            this.tetrimino.rotation.z += angulo;
           break;
         case 39: //Derecha
             if( this.puedeDerecha() ){
@@ -440,26 +519,33 @@ class MyScene extends THREE.Scene {
             this.cuadrado4.posY += 1;
         }
         else{
-            this.matriz[this.cuadrado1.posX][this.cuadrado1.posY] = this.cuadrado1.letra;
-            this.matriz[this.cuadrado2.posX][this.cuadrado2.posY] = this.cuadrado2.letra;
-            this.matriz[this.cuadrado3.posX][this.cuadrado3.posY] = this.cuadrado3.letra;
-            this.matriz[this.cuadrado4.posX][this.cuadrado4.posY] = this.cuadrado4.letra;
 
-            this.remove(this.cuadrado1);
-            this.colocados.add(this.cuadrado1);
-            this.cuadrado1.position.set(5-this.cuadrado1.posX, 8-this.cuadrado1.posY, 0);
-            this.remove(this.cuadrado2);
-            this.colocados.add(this.cuadrado2);
-            this.cuadrado2.position.set(5-this.cuadrado2.posX, 8-this.cuadrado2.posY, 0);
-            this.remove(this.cuadrado3);
-            this.colocados.add(this.cuadrado3);
-            this.cuadrado3.position.set(5-this.cuadrado3.posX, 8-this.cuadrado3.posY, 0);
-            this.remove(this.cuadrado4);
-            this.colocados.add(this.cuadrado4);
-            this.cuadrado4.position.set(5-this.cuadrado4.posX, 8-this.cuadrado4.posY, 0);
-            this.createtetrimino();
+            if(this.cuadrado1.posY == 0 || this.cuadrado2.posY == 0 || this.cuadrado3.posY == 0 || this.cuadrado4.posY == 0){
+                //se acaba el juego
+            }
+            else{
 
-            this.colocados.comprobarFilas();
+                this.matriz[this.cuadrado1.posX][this.cuadrado1.posY] = this.cuadrado1.letra;
+                this.matriz[this.cuadrado2.posX][this.cuadrado2.posY] = this.cuadrado2.letra;
+                this.matriz[this.cuadrado3.posX][this.cuadrado3.posY] = this.cuadrado3.letra;
+                this.matriz[this.cuadrado4.posX][this.cuadrado4.posY] = this.cuadrado4.letra;
+
+                this.remove(this.cuadrado1);
+                this.colocados.add(this.cuadrado1);
+                this.cuadrado1.position.set(5-this.cuadrado1.posX, 8-this.cuadrado1.posY, 0);
+                this.remove(this.cuadrado2);
+                this.colocados.add(this.cuadrado2);
+                this.cuadrado2.position.set(5-this.cuadrado2.posX, 8-this.cuadrado2.posY, 0);
+                this.remove(this.cuadrado3);
+                this.colocados.add(this.cuadrado3);
+                this.cuadrado3.position.set(5-this.cuadrado3.posX, 8-this.cuadrado3.posY, 0);
+                this.remove(this.cuadrado4);
+                this.colocados.add(this.cuadrado4);
+                this.cuadrado4.position.set(5-this.cuadrado4.posX, 8-this.cuadrado4.posY, 0);
+                this.createtetrimino();
+
+                this.colocados.comprobarFilas();
+            }
         }
     }//si ha pasado tiempo
 
