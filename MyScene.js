@@ -264,7 +264,7 @@ class MyScene extends THREE.Scene {
       this.cuadrado3.posY = 0;
       this.cuadrado3.applyMatrix (new THREE.Matrix4().makeTranslation(-1,0,0));
 
-      this.cuadrado4.posX = 4;
+      this.cuadrado4.posX = 5;
       this.cuadrado4.posY = 1;
 
       this.cuadrado4.applyMatrix (new THREE.Matrix4().makeTranslation(0,-1,0));
@@ -632,7 +632,7 @@ class MyScene extends THREE.Scene {
         if(puedeBajar){
             //this.tetrimino.position.y -= 1; //KIERAN -- DESCOMENTAR
             this.tiempoAnterior = tiempoActual;
-            
+
             this.cuadrado1.posY += 1;
             this.cuadrado2.posY += 1;
             this.cuadrado3.posY += 1;
