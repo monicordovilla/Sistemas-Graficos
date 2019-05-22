@@ -27,6 +27,7 @@ class tetriminosColocados extends THREE.Object3D{
             if(this.children[i].posY == fila){
                 scene.matriz[this.children[i].posX][this.children[i].posY] ='V';
                 this.remove(this.children[i]);
+                //this.children.splice(i,1); //acortar
             }
         }
 
