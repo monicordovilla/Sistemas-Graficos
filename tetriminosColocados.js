@@ -27,7 +27,7 @@ class tetriminosColocados extends THREE.Object3D{
             if(this.children[i].posY == fila){
                 scene.matriz[this.children[i].posX][this.children[i].posY] ='V';
                 this.remove(this.children[i]);
-                this.children.splice(i,1); //acortar
+                //this.children.splice(i,1); //acortar
             }
         }
 
@@ -38,19 +38,24 @@ class tetriminosColocados extends THREE.Object3D{
             }
         }
 
-        for(var i=fila; i>0; i--){
-            scene.matriz[i]=scene.matriz[i-1];
+        for(var i=0; i<12; i++){
+            for(var j=fila; j>0; j--){
+            scene.matriz[i][j]=scene.matriz[i][j-1];
+            }
         }
-        scene.matriz[0].fill('V');
-        scene.matriz[0][-1] = 'X';
-        scene.matriz[0][12] = 'X';
+
+        for(var i=0; i<12; i++){
+            scene.matriz[i][0] ='V';
+        }
+        scene.matriz[-1][0] = 'X';
+        scene.matriz[12][0] = 'X';
 
         for (var i = 0; i < scene.matriz.length; i++) {
-            console.log(scene.matriz[i][0] + " " + scene.matriz[i][1] + " " +
-            scene.matriz[i][2] + " " +scene.matriz[i][3] + " " +scene.matriz[i][4] +
-            " " + scene.matriz[i][5] + " " +scene.matriz[i][6] + " " +scene.matriz[i][7]
-             + " " + scene.matriz[i][8] + " " +scene.matriz[i][9] + " " +
-             scene.matriz[i][10] + " " + scene.matriz[i][11] + " " + scene.matriz[i][12]);
+            var un_string = "";
+            for (var j = 0; j < 18; j++) {
+                un_string += (scene.matriz[i][j] + " ");
+            }
+            console.log(un_string);
         }
 
     }
