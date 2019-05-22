@@ -47,8 +47,7 @@ class MyScene extends THREE.Scene {
   createtetrimino(){
       this.tetrimino = new THREE.Object3D();
       var random = Math.floor(Math.random() * 7) + 1;
-     this.createtetriminoI();
-/*
+
       switch (random) {
           case 1: //tetrimino I
             this.createtetriminoI();
@@ -71,7 +70,7 @@ class MyScene extends THREE.Scene {
           case 7: //tetrimino T
             this.createtetriminoT();
             break;
-      }*/
+      }
       this.tetrimino.position.set(0 , 8, 0);
 
 
@@ -229,17 +228,17 @@ class MyScene extends THREE.Scene {
       this.cuadrado1.posX = 5;
       this.cuadrado1.posY = 0;
 
-      this.cuadrado2.posX = 4;
+      this.cuadrado2.posX = 6;
       this.cuadrado2.posY = 0;
-      this.cuadrado2.applyMatrix (new THREE.Matrix4().makeTranslation(1,0,0));
+      //this.cuadrado2.applyMatrix (new THREE.Matrix4().makeTranslation(1,0,0));
 
       this.cuadrado3.posX = 5;
       this.cuadrado3.posY = 1;
-      this.cuadrado3.applyMatrix (new THREE.Matrix4().makeTranslation(0,-1,0));
+     // this.cuadrado3.applyMatrix (new THREE.Matrix4().makeTranslation(0,-1,0));
 
-      this.cuadrado4.posX = 6;
+      this.cuadrado4.posX = 4;
       this.cuadrado4.posY = 1;
-      this.cuadrado4.applyMatrix (new THREE.Matrix4().makeTranslation(-1,-1,0));
+     // this.cuadrado4.applyMatrix (new THREE.Matrix4().makeTranslation(-1,-1,0));
 
       this.tetrimino.add(this.cuadrado1);
       this.tetrimino.add(this.cuadrado2);
@@ -265,7 +264,7 @@ class MyScene extends THREE.Scene {
       this.cuadrado3.posY = 0;
       this.cuadrado3.applyMatrix (new THREE.Matrix4().makeTranslation(-1,0,0));
 
-      this.cuadrado4.posX = 5;
+      this.cuadrado4.posX = 4;
       this.cuadrado4.posY = 1;
 
       this.cuadrado4.applyMatrix (new THREE.Matrix4().makeTranslation(0,-1,0));
@@ -357,6 +356,7 @@ class MyScene extends THREE.Scene {
         {
               puedeIzquierda = false;
       }
+      console.log(puedeIzquierda);
       return puedeIzquierda;
   }
 
@@ -370,7 +370,7 @@ class MyScene extends THREE.Scene {
         {
               puedeDerecha = false;
          }
-        console.log(this.matriz);
+        console.log(puedeDerecha);
       return puedeDerecha;
   }
 
@@ -386,7 +386,7 @@ class MyScene extends THREE.Scene {
       switch (tecla) {
         case 37: //Izquerda
             if( this.puedeIzquierda() ){
-              this.tetrimino.position.x -= 1;
+              //this.tetrimino.position.x -= 1; //KIERAN -- DESCOMENTAR
               this.cuadrado1.posX += 1;
               this.cuadrado2.posX += 1;
               this.cuadrado3.posX += 1;
@@ -395,93 +395,213 @@ class MyScene extends THREE.Scene {
           break;
         case 38: //ROTA
         var angulo = THREE.Math.degToRad(90);
+
+
             switch (this.cuadrado1.letra) {
                 case "I":
-                    if(this.cuadrado1.posX == this.cuadrado2.posX) {
-                      this.cuadrado1.posX -=1;
-                      this.cuadrado2.posX = this.cuadrado1.posX+1;
-                      this.cuadrado2.posY = this.cuadrado1.posY;
-                      this.cuadrado3.posX = this.cuadrado2.posX+1;
-                      this.cuadrado3.posY = this.cuadrado1.posY;
-                      this.cuadrado4.posX = this.cuadrado3.posX+1;
-                      this.cuadrado4.posY = this.cuadrado1.posY;
+                    if(this.cuadrado1.tipo == 1) {
+                      this.cuadrado1.posX -= 2;
+                      this.cuadrado1.posY -= 0;
+                      this.cuadrado2.posX -= 1;
+                      this.cuadrado2.posY -= 1;
+                      this.cuadrado3.posX += 0;
+                      this.cuadrado3.posY -= 2;
+                      this.cuadrado4.posX += 1;
+                      this.cuadrado4.posY -= 3;
+
+                      this.cuadrado1.tipo = 2;
+                      this.cuadrado2.tipo = 2;
+                      this.cuadrado3.tipo = 2;
+                      this.cuadrado4.tipo = 2;
+
                   }
-                    else {
-                      this.cuadrado1.posY +=1;
-                      this.cuadrado2.posY = this.cuadrado1.posY-1;
-                      this.cuadrado2.posX = this.cuadrado1.posX;
-                      this.cuadrado3.posY = this.cuadrado2.posY-1;
-                      this.cuadrado3.posX = this.cuadrado1.posX;
-                      this.cuadrado4.posY = this.cuadrado3.posY-1;
-                      this.cuadrado4.posX = this.cuadrado1.posX;
+                  else if(this.cuadrado1.tipo == 2){
+                    this.cuadrado1.posX += 2;
+                    this.cuadrado1.posY -= 0;
+                    this.cuadrado2.posX += 1;
+                    this.cuadrado2.posY += 1;
+                    this.cuadrado3.posX += 0;
+                    this.cuadrado3.posY += 2;
+                    this.cuadrado4.posX -= 1;
+                    this.cuadrado4.posY += 3;
+
+                      this.cuadrado1.tipo = 1;
+                      this.cuadrado2.tipo = 1;
+                      this.cuadrado3.tipo = 1;
+                      this.cuadrado4.tipo = 1;
                   }
                     break;
                 case "J":
-                    if(this.cuadrado1.posX == this.cuadrado2.posX) {
-                      this.cuadrado1.posX -=1;
-                      this.cuadrado2.posX = this.cuadrado1.posX+1;
-                      this.cuadrado2.posY = this.cuadrado1.posY;
-                      this.cuadrado3.posX = this.cuadrado2.posX+1;
-                      this.cuadrado3.posY = this.cuadrado1.posY;
-                      this.cuadrado4.posX = this.cuadrado3.posX;
-                      this.cuadrado4.posY = this.cuadrado3.posY+1;
+                if(this.cuadrado1.tipo == 1) {
+                  this.cuadrado1.posX -= 1;
+                  this.cuadrado1.posY -= 0;
+                  this.cuadrado2.posX -= 0;
+                  this.cuadrado2.posY -= 1;
+                  this.cuadrado3.posX += 1;
+                  this.cuadrado3.posY -= 2;
+                  this.cuadrado4.posX += 2;
+                  this.cuadrado4.posY += 1;
+
+                  this.cuadrado1.tipo = 2;
+                  this.cuadrado2.tipo = 2;
+                  this.cuadrado3.tipo = 2;
+                  this.cuadrado4.tipo = 2;
+              }
+              else if(this.cuadrado1.tipo == 2) {
+                  this.cuadrado1.posX += 0;
+                  this.cuadrado1.posY += 1;
+                  this.cuadrado2.posX -= 1;
+                  this.cuadrado2.posY -= 1;
+                  this.cuadrado3.posX -= 2;
+                  this.cuadrado3.posY -= 1;
+                  this.cuadrado4.posX += 1;
+                  this.cuadrado4.posY -= 2;
+
+                  this.cuadrado1.tipo = 3;
+                  this.cuadrado2.tipo = 3;
+                  this.cuadrado3.tipo = 3;
+                  this.cuadrado4.tipo = 3;
+                }
+
+                else if(this.cuadrado1.tipo == 3) {
+                    this.cuadrado1.posX += 1;
+                    this.cuadrado1.posY += 0;
+                    this.cuadrado2.posX -= 0;
+                    this.cuadrado2.posY += 1;
+                    this.cuadrado3.posX -= 1;
+                    this.cuadrado3.posY += 2;
+                    this.cuadrado4.posX -= 2;
+                    this.cuadrado4.posY += 1;
+
+                    this.cuadrado1.tipo = 4;
+                    this.cuadrado2.tipo = 4;
+                    this.cuadrado3.tipo = 4;
+                    this.cuadrado4.tipo = 4;
                   }
-                    else {
-                      this.cuadrado1.posY +=1;
-                      this.cuadrado2.posY = this.cuadrado1.posY-1;
-                      this.cuadrado2.posX = this.cuadrado1.posX;
-                      this.cuadrado3.posY = this.cuadrado2.posY-1;
-                      this.cuadrado3.posX = this.cuadrado1.posX;
-                      this.cuadrado4.posY = this.cuadrado3.posY;
-                      this.cuadrado4.posX = this.cuadrado3.posX+1;
+
+                  else if(this.cuadrado1.tipo == 4) {
+                      this.cuadrado1.posX += 0;
+                      this.cuadrado1.posY += 1;
+                      this.cuadrado2.posX += 1;
+                      this.cuadrado2.posY += 0;
+                      this.cuadrado3.posX += 2;
+                      this.cuadrado3.posY += 1;
+                      this.cuadrado4.posX += 1;
+                      this.cuadrado4.posY += 2;
+
+                      this.cuadrado1.tipo = 4;
+                      this.cuadrado2.tipo = 4;
+                      this.cuadrado3.tipo = 4;
+                      this.cuadrado4.tipo = 4;
                     }
                     break;
                 case "L":
-                    if(this.cuadrado1.posX == this.cuadrado2.posX) {
-                      this.cuadrado1.posX -=1;
-                      this.cuadrado2.posX = this.cuadrado1.posX+1;
-                      this.cuadrado2.posY = this.cuadrado1.posY;
-                      this.cuadrado3.posX = this.cuadrado2.posX+1;
-                      this.cuadrado3.posY = this.cuadrado1.posY;
-                      this.cuadrado4.posX = this.cuadrado3.posX;
-                      this.cuadrado4.posY = this.cuadrado3.posY-1;
+                    if(this.cuadrado1.tipo == 1) {
+                      this.cuadrado1.posX -= 1;
+                      this.cuadrado1.posY -= 0;
+                      this.cuadrado2.posX -= 0;
+                      this.cuadrado2.posY -= 1;
+                      this.cuadrado3.posX += 1;
+                      this.cuadrado3.posY -= 2;
+                      this.cuadrado4.posX += 2;
+                      this.cuadrado4.posY += 1;
+
+                      this.cuadrado1.tipo = 2;
+                      this.cuadrado2.tipo = 2;
+                      this.cuadrado3.tipo = 2;
+                      this.cuadrado4.tipo = 2;
                   }
-                    else {
-                      this.cuadrado1.posY +=1;
-                      this.cuadrado2.posY = this.cuadrado1.posY-1;
-                      this.cuadrado2.posX = this.cuadrado1.posX;
-                      this.cuadrado3.posY = this.cuadrado2.posY-1;
-                      this.cuadrado3.posX = this.cuadrado1.posX;
-                      this.cuadrado4.posY = this.cuadrado3.posY;
-                      this.cuadrado4.posX = this.cuadrado3.posX-1;
+                  else if(this.cuadrado1.tipo == 2) {
+                      this.cuadrado1.posX += 0;
+                      this.cuadrado1.posY += 1;
+                      this.cuadrado2.posX -= 1;
+                      this.cuadrado2.posY -= 1;
+                      this.cuadrado3.posX -= 2;
+                      this.cuadrado3.posY -= 1;
+                      this.cuadrado4.posX += 1;
+                      this.cuadrado4.posY -= 2;
+
+                      this.cuadrado1.tipo = 3;
+                      this.cuadrado2.tipo = 3;
+                      this.cuadrado3.tipo = 3;
+                      this.cuadrado4.tipo = 3;
                     }
+
+                    else if(this.cuadrado1.tipo == 3) {
+                        this.cuadrado1.posX += 1;
+                        this.cuadrado1.posY += 0;
+                        this.cuadrado2.posX -= 0;
+                        this.cuadrado2.posY += 1;
+                        this.cuadrado3.posX -= 1;
+                        this.cuadrado3.posY += 2;
+                        this.cuadrado4.posX -= 2;
+                        this.cuadrado4.posY += 1;
+
+                        this.cuadrado1.tipo = 4;
+                        this.cuadrado2.tipo = 4;
+                        this.cuadrado3.tipo = 4;
+                        this.cuadrado4.tipo = 4;
+                      }
+
+                      else if(this.cuadrado1.tipo == 4) {
+                          this.cuadrado1.posX += 0;
+                          this.cuadrado1.posY += 1;
+                          this.cuadrado2.posX += 1;
+                          this.cuadrado2.posY += 0;
+                          this.cuadrado3.posX += 2;
+                          this.cuadrado3.posY += 1;
+                          this.cuadrado4.posX += 1;
+                          this.cuadrado4.posY += 2;
+
+                          this.cuadrado1.tipo = 4;
+                          this.cuadrado2.tipo = 4;
+                          this.cuadrado3.tipo = 4;
+                          this.cuadrado4.tipo = 4;
+                        }
+
                     break;
 
                 case "Z":
-                    if(this.cuadrado1.posX == this.cuadrado2.posX) {
-                      this.cuadrado1.posX -=1;
-                      this.cuadrado1.posY -=1;
-                      this.cuadrado3.posX = this.cuadrado3.posX-1;
-                      this.cuadrado3.posY = this.cuadrado3.posY+1;
-                      this.cuadrado4.posX = this.cuadrado3.posX;
-                      this.cuadrado4.posY = this.cuadrado3.posY+2;
+                  if(this.cuadrado1.tipo == 1) {
+                    this.cuadrado1.posX += 0;
+                    this.cuadrado1.posY += 2;
+                    this.cuadrado2.posX -= 2;
+                    this.cuadrado2.posY += 0;
+                    this.cuadrado3.posX += 0;
+                    this.cuadrado3.posY -= 0;
+                    this.cuadrado4.posX += 0;
+                    this.cuadrado4.posY += 0;
+
+                    this.cuadrado1.tipo = 2;
+                    this.cuadrado2.tipo = 2;
+                    this.cuadrado3.tipo = 2;
+                    this.cuadrado4.tipo = 2;
+                }
+                else if(this.cuadrado1.tipo == 2) {
+                  this.cuadrado1.posX -= 0;
+                  this.cuadrado1.posY -= 2;
+                  this.cuadrado2.posX += 2;
+                  this.cuadrado2.posY -= 0;
+                  this.cuadrado3.posX += 0;
+                  this.cuadrado3.posY -= 0;
+                  this.cuadrado4.posX += 0;
+                  this.cuadrado4.posY += 0;
+
+
+                  this.cuadrado1.tipo = 1;
+                  this.cuadrado2.tipo = 1;
+                  this.cuadrado3.tipo = 1;
+                  this.cuadrado4.tipo = 1;
                   }
-                    else {
-                      this.cuadrado1.posY +=1;
-                      this.cuadrado2.posY = this.cuadrado1.posY-1;
-                      this.cuadrado2.posX = this.cuadrado1.posX;
-                      this.cuadrado3.posY = this.cuadrado2.posY;
-                      this.cuadrado3.posX = this.cuadrado1.posX+1;
-                      this.cuadrado4.posY = this.cuadrado3.posY-1;
-                      this.cuadrado4.posX = this.cuadrado3.posX;
-                    }
-                    break;
+
+                  break;
             }
-            this.tetrimino.rotation.z += angulo;
+
+            //this.tetrimino.rotation.z += angulo; //KIERAN -- DESCOMENTAR
           break;
         case 39: //Derecha
             if( this.puedeDerecha() ){
-              this.tetrimino.position.x += 1;
+              //this.tetrimino.position.x += 1; //KIERAN -- DESCOMENTAR
               this.cuadrado1.posX -= 1;
               this.cuadrado2.posX -= 1;
               this.cuadrado3.posX -= 1;
@@ -490,7 +610,7 @@ class MyScene extends THREE.Scene {
           break;
         case 40: //BAJA
             if( this.puedeBajar() ){
-                this.tetrimino.position.y -= 1;
+                //this.tetrimino.position.y -= 1; //KIERAN -- DESCOMENTAR
                 this.cuadrado1.posY += 1;
                 this.cuadrado2.posY += 1;
                 this.cuadrado3.posY += 1;
@@ -501,18 +621,18 @@ class MyScene extends THREE.Scene {
   };
 
   update () {
-      this.cameraControl.update();
+    this.cameraControl.update();
 
     var i=0;
     var tiempoActual = Date.now(); //Tiempo en milisegundos
     var segundosTranscurridos = (tiempoActual - this.tiempoAnterior)/1000;
 
-    if(segundosTranscurridos >= 0.2){ //Si no ha transcurrido X segundo(s)
+    if(segundosTranscurridos >= 0.5){ //Si no ha transcurrido X segundo(s)
         var puedeBajar = this.puedeBajar();
         if(puedeBajar){
-            this.tetrimino.position.y -= 1;
+            //this.tetrimino.position.y -= 1; //KIERAN -- DESCOMENTAR
             this.tiempoAnterior = tiempoActual;
-
+            
             this.cuadrado1.posY += 1;
             this.cuadrado2.posY += 1;
             this.cuadrado3.posY += 1;
@@ -547,6 +667,14 @@ class MyScene extends THREE.Scene {
                 this.colocados.comprobarFilas();
             }
         }
+
+        //KIERAN
+        this.cuadrado1.position.set(5-this.cuadrado1.posX, -this.cuadrado1.posY, 0);
+        this.cuadrado2.position.set(5-this.cuadrado2.posX, -this.cuadrado2.posY, 0);
+        this.cuadrado3.position.set(5-this.cuadrado3.posX, -this.cuadrado3.posY, 0);
+        this.cuadrado4.position.set(5-this.cuadrado4.posX, -this.cuadrado4.posY, 0);
+        //FIN KIERAN
+
     }//si ha pasado tiempo
 
   }//cierre update()

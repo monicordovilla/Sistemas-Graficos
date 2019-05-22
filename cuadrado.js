@@ -7,6 +7,7 @@ class cuadrado extends THREE.Mesh {
 		this.posX = 0;
 		this.posY = 0;
 		this.letra = letra;
+		this.tipo = 1;
 		var squareShape = new THREE.Shape();
 		squareShape.moveTo( 0, 0 );
 		squareShape.lineTo( 0, sqLength );
