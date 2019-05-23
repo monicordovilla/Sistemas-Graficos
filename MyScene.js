@@ -661,6 +661,85 @@ class MyScene extends THREE.Scene {
                     }
 
                     break;
+
+                    case "T":
+                      if(this.cuadrado1.tipo == 1 && this.puedeRotar(0,0,1,-1,-1,1,1,-1)) {
+                        this.cuadrado1.posX += 0;
+                        this.cuadrado1.posY += 0;
+
+                        this.cuadrado2.posX += 1;
+                        this.cuadrado2.posY -= 1;
+
+                        this.cuadrado3.posX -= 1;
+                        this.cuadrado3.posY += 1;
+
+                        this.cuadrado4.posX += 1;
+                        this.cuadrado4.posY -= 1;
+
+                        this.cuadrado1.tipo = 2;
+                        this.cuadrado2.tipo = 2;
+                        this.cuadrado3.tipo = 2;
+                        this.cuadrado4.tipo = 2;
+                    }
+                    else if(this.cuadrado1.tipo == 2 && this.puedeRotar(0,0,1,1,-1,-1,-1,-1)) {
+                      this.cuadrado1.posX -= 0;
+                      this.cuadrado1.posY -= 0;
+
+                      this.cuadrado2.posX += 1;
+                      this.cuadrado2.posY += 1;
+
+                      this.cuadrado3.posX -= 1;
+                      this.cuadrado3.posY -= 1;
+
+                      this.cuadrado4.posX -= 1;
+                      this.cuadrado4.posY -= 1;
+
+                      this.cuadrado1.tipo = 3;
+                      this.cuadrado2.tipo = 3;
+                      this.cuadrado3.tipo = 3;
+                      this.cuadrado4.tipo = 3;
+                      }
+
+                      else if(this.cuadrado1.tipo == 3 && this.puedeRotar(0,0,-1,1,1,-1,-1,1)) {
+                        this.cuadrado1.posX -= 0;
+                        this.cuadrado1.posY -= 0;
+
+                        this.cuadrado2.posX -= 1;
+                        this.cuadrado2.posY += 1;
+
+                        this.cuadrado3.posX += 1;
+                        this.cuadrado3.posY -= 1;
+
+                        this.cuadrado4.posX -= 1;
+                        this.cuadrado4.posY += 1;
+
+                        this.cuadrado1.tipo = 4;
+                        this.cuadrado2.tipo = 4;
+                        this.cuadrado3.tipo = 4;
+                        this.cuadrado4.tipo = 4;
+                        }
+
+
+                        else if(this.cuadrado1.tipo == 4 && this.puedeRotar(0,0,-1,-1,1,1,1,1)) {
+                          this.cuadrado1.posX -= 0;
+                          this.cuadrado1.posY -= 0;
+
+                          this.cuadrado2.posX -= 1;
+                          this.cuadrado2.posY -= 1;
+
+                          this.cuadrado3.posX += 1;
+                          this.cuadrado3.posY += 1;
+
+                          this.cuadrado4.posX += 1;
+                          this.cuadrado4.posY += 1;
+
+                          this.cuadrado1.tipo = 1;
+                          this.cuadrado2.tipo = 1;
+                          this.cuadrado3.tipo = 1;
+                          this.cuadrado4.tipo = 1;
+                          }
+
+                      break;
             }
           break;
         case 39: //Derecha
