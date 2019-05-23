@@ -9,7 +9,7 @@ class tetriminosColocados extends THREE.Object3D{
 
       this.contadores.fill(0);
 
-      console.log(this.children.length)
+      //console.log(this.children.length)
       for(var i=0; i<this.children.length; i++) {
         this.contadores[this.children[i].posY]++;
       }

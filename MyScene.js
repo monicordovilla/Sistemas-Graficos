@@ -7,7 +7,7 @@
 class MyScene extends THREE.Scene {
   constructor (unRenderer) {
     super();
-    this.createGUI ();
+    this.createGUI();
     this.createLights ();
     this.createCamera (unRenderer);
     this.tiempoAnterior = Date.now(); //Tiempo en milisegundos
@@ -41,6 +41,40 @@ class MyScene extends THREE.Scene {
 
     //Creacion del entorno tetris
     this.createCaja(); //11 ancho * 17 largo
+    this.createAudio();
+
+  }
+
+  createAudio(){
+      // crea an AudioListener y lo añade a la cámara
+      var listener = new THREE.AudioListener();
+      this.camera.add( listener );
+
+      //crar una fuente de audio global
+      var sound = new THREE.Audio( listener );
+
+      // cargar el sonido y configurarlo como el búfer de objeto de audio
+      var audioLoader = new THREE.AudioLoader();
+      audioLoader.load( 'https://upload.wikimedia.org/wikipedia/commons/e/e5/Tetris_theme.ogg', function( buffer ) {
+          sound.setBuffer( buffer );
+          sound.setLoop( true );
+          sound.setVolume( 0.5 );
+          sound.play();
+      });
+
+      //sacado de documentación three.js webaudio / sandbox
+      //https://github.com/mrdoob/three.js/blob/master/examples/webaudio_sandbox.html
+      var SoundControls = function () {
+          this.master = listener.getMasterVolume();
+          this.Ambient = sound.getVolume();
+     };
+
+      var soundControls = new SoundControls();
+
+      var folder = gui.addFolder ('Control de volumen');
+      folder.add( soundControls, 'Ambient' ).min( 0.0 ).max( 1.0 ).step( 0.01 ).onChange( function () {
+          sound.setVolume( soundControls.Ambient );
+      } );
 
   }
 
@@ -287,9 +321,10 @@ class MyScene extends THREE.Scene {
     this.cameraControl.target = look;
   }
 
-  createGUI () {
-    this.guiControls = new function() {
-    }
+  createGUI() {
+      this.guiControls = new function() {
+      }
+
   }
 
   createLights () {
@@ -762,8 +797,6 @@ class MyScene extends THREE.Scene {
   };
 
   update () {
-    this.cameraControl.update();
-
     var i=0;
     var tiempoActual = Date.now(); //Tiempo en milisegundos
     var segundosTranscurridos = (tiempoActual - this.tiempoAnterior)/1000;
