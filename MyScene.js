@@ -188,13 +188,13 @@ class MyScene extends THREE.Scene {
     this.cuadrado1.posX = 5;
     this.cuadrado1.posY = 0;
 
-    this.cuadrado2.posX = 6;
+    this.cuadrado2.posX = 4;
     this.cuadrado2.posY = 0;
 
     this.cuadrado3.posX = 5;
     this.cuadrado3.posY = 1;
 
-    this.cuadrado4.posX = 4;
+    this.cuadrado4.posX = 6;
     this.cuadrado4.posY = 1;
 
     this.tetrimino.add(this.cuadrado1);
@@ -388,7 +388,6 @@ class MyScene extends THREE.Scene {
           break;
         case 38: //ROTA
         var angulo = THREE.Math.degToRad(90);
-
 
             switch (this.cuadrado1.letra) {
                 case "I":
@@ -622,6 +621,46 @@ class MyScene extends THREE.Scene {
                   }
 
                   break;
+
+                  case "S":
+                    if(this.cuadrado1.tipo == 1 && this.puedeRotar(1,0,1,2,0,0,0,0)) {
+                      this.cuadrado1.posX += 1;
+                      this.cuadrado1.posY += 0;
+
+                      this.cuadrado2.posX += 1;
+                      this.cuadrado2.posY += 2;
+
+                      this.cuadrado3.posX += 0;
+                      this.cuadrado3.posY -= 0;
+
+                      this.cuadrado4.posX += 0;
+                      this.cuadrado4.posY += 0;
+
+                      this.cuadrado1.tipo = 2;
+                      this.cuadrado2.tipo = 2;
+                      this.cuadrado3.tipo = 2;
+                      this.cuadrado4.tipo = 2;
+                  }
+                  else if(this.cuadrado1.tipo == 2 && this.puedeRotar(-1,0,-1,-2,0,0,0,0)) {
+                    this.cuadrado1.posX -= 1;
+                    this.cuadrado1.posY -= 0;
+
+                    this.cuadrado2.posX -= 1;
+                    this.cuadrado2.posY -= 2;
+
+                    this.cuadrado3.posX += 0;
+                    this.cuadrado3.posY -= 0;
+
+                    this.cuadrado4.posX += 0;
+                    this.cuadrado4.posY += 0;
+
+                    this.cuadrado1.tipo = 1;
+                    this.cuadrado2.tipo = 1;
+                    this.cuadrado3.tipo = 1;
+                    this.cuadrado4.tipo = 1;
+                    }
+
+                    break;
             }
           break;
         case 39: //Derecha
