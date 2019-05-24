@@ -11,6 +11,7 @@ class MyScene extends THREE.Scene {
     this.createLights ();
     this.createCamera (unRenderer);
     this.tiempoAnterior = Date.now(); //Tiempo en milisegundos
+    this.tiempoInicial = Date.now();
     this.colocados = new tetriminosColocados();
     this.add(this.colocados);
     /*
@@ -801,7 +802,7 @@ class MyScene extends THREE.Scene {
     var tiempoActual = Date.now(); //Tiempo en milisegundos
     var segundosTranscurridos = (tiempoActual - this.tiempoAnterior)/1000;
 
-    if(segundosTranscurridos >= 0.5){ //Si no ha transcurrido X segundo(s)
+    if(segundosTranscurridos >= time){ //Si no ha transcurrido X segundo(s)
         var puedeBajar = this.puedeBajar();
         if(puedeBajar){
             this.tiempoAnterior = tiempoActual;
@@ -814,7 +815,14 @@ class MyScene extends THREE.Scene {
         else{
 
             if(this.cuadrado1.posY == 0 || this.cuadrado2.posY == 0 || this.cuadrado3.posY == 0 || this.cuadrado4.posY == 0){
-                //se acaba el juego
+                var tiempoFinal = Date.now(); //Tiempo en milisegundos
+                var segundos = (tiempoFinal - this.tiempoInicial)/1000;
+                if(segundos == 3){
+                    time -= 0.1;
+                }
+                if(time > 0){
+                    reiniciarJuego();
+                }
             }
             else{
 

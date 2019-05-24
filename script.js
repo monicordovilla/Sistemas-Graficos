@@ -9,6 +9,8 @@ renderer = null;
 /// El objeto que referencia a la interfaz gráfica de usuario
 gui = null;
 
+/// El objeto que controla el tiempo
+time = 1;
 
 /// Se crea y configura un renderer WebGL
 /**
@@ -80,3 +82,22 @@ $(function () {
   // Finalmente, realizamos el primer renderizado.
   render();
 });
+
+function reiniciarJuego(){
+    //Eliminar gui
+    gui.destroy();
+
+    //Eliminar escena
+    while(scene.children.length > 0){
+        scene.remove(scene.children[0]);
+    }
+
+    // Se crea una interfaz gráfica de usuario vacia de nuevo
+    gui = new dat.GUI();
+
+    // Vuelve a crearse la escena
+    scene = new MyScene (renderer.domElement);
+
+    // volvemos a renderizar
+    render();
+}
