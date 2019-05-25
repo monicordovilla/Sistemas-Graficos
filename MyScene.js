@@ -1,24 +1,32 @@
-
-/// La clase fachada del modelo
-/**
- * Usaremos una clase derivada de la clase Scene de Three.js para llevar el control de la escena y de todo lo que ocurre en ella.
- */
+//MyScene: Clase fachada del modelo, derivada de la clase Scene de Three.js, la usaremos para llevar el control de la escena y de todo lo que ocurre en ella.
 
 class MyScene extends THREE.Scene {
   constructor (unRenderer) {
     super();
+
+    // Se crea la gui de la escena
     this.createGUI();
+
+    // Se crean las luces de la escena
     this.createLights ();
+
+    // Se crea la camara de la escena
     this.createCamera (unRenderer);
-    this.tiempoAnterior = Date.now(); //Tiempo en milisegundos
+
+    // Tiempos en milisegundos
+    this.tiempoAnterior = Date.now();
     this.tiempoInicial = Date.now();
+
+    // Tetriminos que ya estan colocados como bloque en la parte inferior del juego
     this.colocados = new tetriminosColocados();
-    this.add(this.colocados);
-    /*
-    V - vacio
-    I, J, L, O, S, T, Z - forma de los tetriminos
-    X - borde(ocupado)
-    */
+    this.add(this.colocados);                     //Los añadimos a la escena
+
+    // Se crea una matriz que va a representar de forma logica el juego, con valores:
+    // V                     - Representa una posicion vacia
+    // I, J, L, O, S, T, Z   - Representa una posicion ocupada por algun tetrimino
+    // X                     - Representa el limite de la escena de juego
+
+    //Se inicializa la matriz en V, excepto los limites como X
     var i, j;
     this.matriz = new Array(13);
     for (i=-1; i<this.matriz.length; i++){
@@ -29,57 +37,65 @@ class MyScene extends THREE.Scene {
                 this.matriz[i][j] = "X";
              else
                this.matriz[i][j] = "V";
-
              //console.log(this.matriz[i][j] + " " + j);
          }
         // console.log("\n");
      }
 
-    /*this.axis = new THREE.AxesHelper (5);
-    this.add (this.axis);*/
-
+    // Creamos el tetrimino del juego
     this.createtetrimino();
 
-    //Creacion del entorno tetris
-    this.createCaja(); //11 ancho * 17 largo
-    this.createAudio();
+    // Creamos el entorno de juego: 11 ancho * 17 largo
+    this.createCaja();
 
+    //Creamos la musica de ambiente
+    this.createAudio();
   }
 
+  // Funcion para la creacion del audio
   createAudio(){
-      // crea an AudioListener y lo añade a la cámara
+
+      // Se crea un AudioListener y se añade a la cámara
       var listener = new THREE.AudioListener();
       this.camera.add( listener );
 
-      //crar una fuente de audio global
+      // Se crea una fuente de audio global
       var sound = new THREE.Audio( listener );
 
-      // cargar el sonido y configurarlo como el búfer de objeto de audio
+      // Se carga el sonido
       var audioLoader = new THREE.AudioLoader();
       audioLoader.load( 'https://upload.wikimedia.org/wikipedia/commons/e/e5/Tetris_theme.ogg', function( buffer ) {
-          sound.setBuffer( buffer );
-          sound.setLoop( true );
-          sound.setVolume( 0.5 );
-          sound.play();
+          sound.setBuffer( buffer );   // Se configura como el búfer de objeto de audio
+          sound.setLoop( true );       // Se establece que se repite en bucle
+          sound.setVolume( 0.5 );      // Se establece el volumen
+          sound.play();                // Se reproduce
       });
 
       //sacado de documentación three.js webaudio / sandbox
       //https://github.com/mrdoob/three.js/blob/master/examples/webaudio_sandbox.html
+      // Se establecen los controles de sonido
       var SoundControls = function () {
           this.master = listener.getMasterVolume();
           this.Ambient = sound.getVolume();
      };
 
+     // Se crean los controles del sonido
       var soundControls = new SoundControls();
 
+      // Se crea una seccion para los controles de sonido
       var folder = gui.addFolder ('Control de volumen');
+
+      // Se le añade un control para cambiar el volumen del sonido
       folder.add( soundControls, 'Ambient' ).min( 0.0 ).max( 1.0 ).step( 0.01 ).onChange( function () {
           sound.setVolume( soundControls.Ambient );
       } );
 
   }
 
+  // Funcion para la creacion del tetrimino
   createtetrimino(){
+
+      //Creamos el tetrimino con un valor aleatorio de juego
       this.tetrimino = new THREE.Object3D();
       var random = Math.floor(Math.random() * 7) + 1;
 
@@ -106,18 +122,21 @@ class MyScene extends THREE.Scene {
             this.createtetriminoT();
             break;
       }
+
+      //Establecemos la posicion del tetrimino
       this.tetrimino.position.set(0 , 8, 0);
-
-
   }
 
+  //Funciones para crear tetriminos concretos
   createtetriminoI(){
+
+      // Se crean los cuadrados de la clase del tetrimino
       this.cuadrado1 = new I();
       this.cuadrado2 = new I();
       this.cuadrado3 = new I();
       this.cuadrado4 = new I();
 
-      //posicion tetrimino en la matriz
+      // Se establece la posicion tetrimino en la matriz (de cada cuadrado)
       this.cuadrado1.posX = 5;
       this.cuadrado1.posY = 0;
 
@@ -130,20 +149,25 @@ class MyScene extends THREE.Scene {
       this.cuadrado4.posX = 5;
       this.cuadrado4.posY = 3;
 
+      // Se añaden los cuadrados al tetrimino
       this.tetrimino.add(this.cuadrado1);
       this.tetrimino.add(this.cuadrado2);
       this.tetrimino.add(this.cuadrado3);
       this.tetrimino.add(this.cuadrado4);
+
+      // Se añade el tetrimino a la escena
       this.add(this.tetrimino);
   }
 
   createtetriminoJ(){
+
+      // Se crean los cuadrados de la clase del tetrimino
       this.cuadrado1 = new J();
       this.cuadrado2 = new J();
       this.cuadrado3 = new J();
       this.cuadrado4 = new J();
 
-      //posicion tetrimino en la matriz
+      // Se establece la posicion tetrimino en la matriz (de cada cuadrado)
       this.cuadrado1.posX = 5;
       this.cuadrado1.posY = 0;
 
@@ -156,20 +180,25 @@ class MyScene extends THREE.Scene {
       this.cuadrado4.posX = 6;
       this.cuadrado4.posY = 2;
 
+      // Se añaden los cuadrados al tetrimino
       this.tetrimino.add(this.cuadrado1);
       this.tetrimino.add(this.cuadrado2);
       this.tetrimino.add(this.cuadrado3);
       this.tetrimino.add(this.cuadrado4);
+
+      // Se añade el tetrimino a la escena
       this.add(this.tetrimino);
   }
 
   createtetriminoL(){
+
+    // Se crean los cuadrados de la clase del tetrimino
     this.cuadrado1 = new L();
     this.cuadrado2 = new L();
     this.cuadrado3 = new L();
     this.cuadrado4 = new L();
 
-    //posicion tetrimino en la matriz
+    // Se establece la posicion tetrimino en la matriz (de cada cuadrado)
     this.cuadrado1.posX = 5;
     this.cuadrado1.posY = 0;
 
@@ -182,19 +211,25 @@ class MyScene extends THREE.Scene {
     this.cuadrado4.posX = 4;
     this.cuadrado4.posY = 2;
 
+    // Se añaden los cuadrados al tetrimino
     this.tetrimino.add(this.cuadrado1);
     this.tetrimino.add(this.cuadrado2);
     this.tetrimino.add(this.cuadrado3);
     this.tetrimino.add(this.cuadrado4);
+
+    // Se añade el tetrimino a la escena
     this.add(this.tetrimino);
   }
+
   createtetriminoO(){
+
+    // Se crean los cuadrados de la clase del tetrimino
     this.cuadrado1 = new O();
     this.cuadrado2 = new O();
     this.cuadrado3 = new O();
     this.cuadrado4 = new O();
 
-    //posicion tetrimino en la matriz
+    // Se establece la posicion tetrimino en la matriz (de cada cuadrado)
     this.cuadrado1.posX = 5;
     this.cuadrado1.posY = 0;
 
@@ -207,19 +242,25 @@ class MyScene extends THREE.Scene {
     this.cuadrado4.posX = 6;
     this.cuadrado4.posY = 1;
 
+    // Se añaden los cuadrados al tetrimino
     this.tetrimino.add(this.cuadrado1);
     this.tetrimino.add(this.cuadrado2);
     this.tetrimino.add(this.cuadrado3);
     this.tetrimino.add(this.cuadrado4);
+
+    // Se añade el tetrimino a la escena
     this.add(this.tetrimino);
   }
+
   createtetriminoS(){
+
+    // Se crean los cuadrados de la clase del tetrimino
     this.cuadrado1 = new S();
     this.cuadrado2 = new S();
     this.cuadrado3 = new S();
     this.cuadrado4 = new S();
 
-    //posicion tetrimino en la matriz
+    // Se establece la posicion tetrimino en la matriz (de cada cuadrado)
     this.cuadrado1.posX = 5;
     this.cuadrado1.posY = 0;
 
@@ -232,19 +273,25 @@ class MyScene extends THREE.Scene {
     this.cuadrado4.posX = 6;
     this.cuadrado4.posY = 1;
 
+    // Se añaden los cuadrados al tetrimino
     this.tetrimino.add(this.cuadrado1);
     this.tetrimino.add(this.cuadrado2);
     this.tetrimino.add(this.cuadrado3);
     this.tetrimino.add(this.cuadrado4);
+
+    // Se añade el tetrimino a la escena
     this.add(this.tetrimino);
   }
+
   createtetriminoZ(){
+
+      // Se crean los cuadrados de la clase del tetrimino
       this.cuadrado1 = new Z();
       this.cuadrado2 = new Z();
       this.cuadrado3 = new Z();
       this.cuadrado4 = new Z();
 
-      //posicion tetrimino en la matriz
+      // Se establece la posicion tetrimino en la matriz (de cada cuadrado)
       this.cuadrado1.posX = 5;
       this.cuadrado1.posY = 0;
 
@@ -257,19 +304,25 @@ class MyScene extends THREE.Scene {
       this.cuadrado4.posX = 4;
       this.cuadrado4.posY = 1;
 
+      // Se añaden los cuadrados al tetrimino
       this.tetrimino.add(this.cuadrado1);
       this.tetrimino.add(this.cuadrado2);
       this.tetrimino.add(this.cuadrado3);
       this.tetrimino.add(this.cuadrado4);
+
+      // Se añade el tetrimino a la escena
       this.add(this.tetrimino);
   }
+
   createtetriminoT(){
+
+      // Se crean los cuadrados de la clase del tetrimino
       this.cuadrado1 = new T();
       this.cuadrado2 = new T();
       this.cuadrado3 = new T();
       this.cuadrado4 = new T();
 
-      //posicion tetrimino en la matriz
+      // Se establece la posicion tetrimino en la matriz (de cada cuadrado)
       this.cuadrado1.posX = 5;
       this.cuadrado1.posY = 0;
 
@@ -282,10 +335,13 @@ class MyScene extends THREE.Scene {
       this.cuadrado4.posX = 5;
       this.cuadrado4.posY = 1;
 
+      // Se añaden los cuadrados al tetrimino
       this.tetrimino.add(this.cuadrado1);
       this.tetrimino.add(this.cuadrado2);
       this.tetrimino.add(this.cuadrado3);
       this.tetrimino.add(this.cuadrado4);
+
+      // Se añade el tetrimino a la escena
       this.add(this.tetrimino);
   }
 
