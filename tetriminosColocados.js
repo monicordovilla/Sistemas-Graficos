@@ -11,7 +11,7 @@ class tetriminosColocados extends THREE.Object3D{
 
       this.contadores.fill(0);  //Se inician todos los contadores a 0
 
-      //Recorremos todas las piezas del bloque de los colocados, actualizando el valor de los contadores en funcion de la aparicion de estas en determinadas filas
+      //Recorremos las piezas que forman parte del bloque y vamos contando en cada fila las que hay
       for(var i=0; i<this.children.length; i++) {
         this.contadores[this.children[i].posY]++;
       }
