@@ -1014,7 +1014,7 @@ class MyScene extends THREE.Scene {
                 var segundos = (tiempoFinal - this.tiempoInicial)/1000;
 
                 //Si el tiempo transcurrido en el juego es igual a 3 segundos
-                if(segundos == 3){
+                if(segundos >= 3){
                     time -= 0.1;
                 }
 
@@ -1054,7 +1054,7 @@ class MyScene extends THREE.Scene {
                 //Se comprueba si se ha de eliminar alguna fila
                 this.colocados.comprobarFilas();
             }
-            
+
         } //Cierre else en caso de no poder bajar
 
         this.cuadrado1.position.set(5-this.cuadrado1.posX, -this.cuadrado1.posY, 0);
