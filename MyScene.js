@@ -16,6 +16,7 @@ class MyScene extends THREE.Scene {
     // Tiempos en milisegundos
     this.tiempoAnterior = Date.now();
     this.tiempoInicial = Date.now();
+    this.volumen = 1.0;
 
     // Tetriminos que ya estan colocados como bloque en la parte inferior del juego
     this.colocados = new tetriminosColocados();
@@ -71,25 +72,6 @@ class MyScene extends THREE.Scene {
           that.sound.setVolume( 0.5 );      // Se establece el volumen
           that.sound.play();                // Se reproduce
       });
-
-      //sacado de documentación three.js webaudio / sandbox
-      //https://github.com/mrdoob/three.js/blob/master/examples/webaudio_sandbox.html
-      // Se establecen los controles de sonido
-      var SoundControls = function () {
-          this.master = listener.getMasterVolume();
-          this.Ambient = that.sound.getVolume();
-     };
-
-     // Se crean los controles del sonido
-      var soundControls = new SoundControls();
-
-      // Se crea una seccion para los controles de sonido
-      var folder = gui.addFolder ('Control de volumen');
-
-      // Se le añade un control para cambiar el volumen del sonido
-      folder.add( soundControls, 'Ambient' ).min( 0.0 ).max( 1.0 ).step( 0.01 ).onChange( function () {
-          this.sound.setVolume( soundControls.Ambient );
-      } );
 
   }
 
@@ -407,7 +389,16 @@ class MyScene extends THREE.Scene {
   //Funcion para crear la gui de la escena
   createGUI() {
       this.guiControls = new function() {
+          this.volumen = 1.0;
+          this.pausa = true;
       }
+
+      // Se crea una seccion para los controles de sonido
+      var folder = gui.addFolder ('volumen');
+
+      // Se le añade un control para cambiar el volumen del sonido
+      folder.add(this.guiControls, 'volumen', 0, 1, 0.1).name('volumen : ');
+      folder.add(this.guiControls, 'pausa').name('pausa : ');
   }
 
   //Funcion para crear las luces de la escena
@@ -981,6 +972,17 @@ class MyScene extends THREE.Scene {
 
   //Funcion para actualizar la escena en cada frame
   update () {
+      if(this.volumen != this.guiControls.volumen){
+          this.volumen == this.guiControls.volumen;
+          this.sound = this.sound.setVolume(this.volumen);
+      }
+
+      if(this.guiControls.pausa){
+          this.sound.pause();
+      }
+      else{
+          this.sound.play();
+      }
 
     var i=0;
 
@@ -1015,7 +1017,7 @@ class MyScene extends THREE.Scene {
                 var segundos = (tiempoFinal - this.tiempoInicial)/1000;
 
                 //Si hemos superado el tiempo establecido se aumenta la velocidad de juego
-                if(segundos >= 3){
+                if( segundos >= (3*60) ){
                     if(time > 0.5){//mientras la velocidad de bajada de posicion es 0.5 segundos
                         time -= 0.1;
                     }
