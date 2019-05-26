@@ -60,15 +60,16 @@ class MyScene extends THREE.Scene {
       this.camera.add( listener );
 
       // Se crea una fuente de audio global
-      var sound = new THREE.Audio( listener );
+      this.sound = new THREE.Audio( listener );
 
       // Se carga el sonido
       var audioLoader = new THREE.AudioLoader();
+      var that = this;
       audioLoader.load( 'https://upload.wikimedia.org/wikipedia/commons/e/e5/Tetris_theme.ogg', function( buffer ) {
-          sound.setBuffer( buffer );   // Se configura como el búfer de objeto de audio
-          sound.setLoop( true );       // Se establece que se repite en bucle
-          sound.setVolume( 0.5 );      // Se establece el volumen
-          sound.play();                // Se reproduce
+          that.sound.setBuffer( buffer );   // Se configura como el búfer de objeto de audio
+          that.sound.setLoop( true );       // Se establece que se repite en bucle
+          that.sound.setVolume( 0.5 );      // Se establece el volumen
+          that.sound.play();                // Se reproduce
       });
 
       //sacado de documentación three.js webaudio / sandbox
@@ -76,7 +77,7 @@ class MyScene extends THREE.Scene {
       // Se establecen los controles de sonido
       var SoundControls = function () {
           this.master = listener.getMasterVolume();
-          this.Ambient = sound.getVolume();
+          this.Ambient = that.sound.getVolume();
      };
 
      // Se crean los controles del sonido
@@ -87,7 +88,7 @@ class MyScene extends THREE.Scene {
 
       // Se le añade un control para cambiar el volumen del sonido
       folder.add( soundControls, 'Ambient' ).min( 0.0 ).max( 1.0 ).step( 0.01 ).onChange( function () {
-          sound.setVolume( soundControls.Ambient );
+          this.sound.setVolume( soundControls.Ambient );
       } );
 
   }
@@ -1015,13 +1016,21 @@ class MyScene extends THREE.Scene {
 
                 //Si hemos superado el tiempo establecido se aumenta la velocidad de juego
                 if(segundos >= 3){
-                    time -= 0.1;
+                    if(time > 0.5){//mientras la velocidad de bajada de posicion es 0.5 segundos
+                        time -= 0.1;
+                    }
+                    else if(time == 0.01){ //Si la velocidad de bajada de posicion es 0.1
+                        //Ultima velocidad disponible
+                    }
+                    else{ // mientras no es mayor de 0.5 y  no ha llegado a 0.1 la velocidad se baja 0.01, una decima parte, para que sea más leve la diferencia
+                        time -= 0.01;
+                    }
                 }
 
+                //paramos la musica antes de que reinicie el juego para que no se superponga
+                this.sound.stop();
                 //Se reinicia el juego
-                if(time > 0){
-                    reiniciarJuego();
-                }
+                reiniciarJuego();
             }
 
             //En caso de no poder bajar pero no terminar el juego
