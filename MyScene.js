@@ -989,8 +989,8 @@ class MyScene extends THREE.Scene {
     //Tiempo en segundos
     var segundosTranscurridos = (tiempoActual - this.tiempoAnterior)/1000;
 
-    //Si no ha transcurrido X segundo(s)
-    if(segundosTranscurridos >= time){
+    //Movimiento continuo de la pieza
+    if(segundosTranscurridos >= time) {  //Si no ha transcurrido X segundo(s)
         var puedeBajar = this.puedeBajar();
 
         //Si puede bajar
@@ -1013,11 +1013,12 @@ class MyScene extends THREE.Scene {
                 var tiempoFinal = Date.now(); //Tiempo en milisegundos
                 var segundos = (tiempoFinal - this.tiempoInicial)/1000;
 
-                //Si el tiempo transcurrido en el juego es igual a 3 segundos
+                //Si hemos superado el tiempo establecido se aumenta la velocidad de juego
                 if(segundos >= 3){
                     time -= 0.1;
                 }
 
+                //Se reinicia el juego
                 if(time > 0){
                     reiniciarJuego();
                 }
@@ -1025,13 +1026,13 @@ class MyScene extends THREE.Scene {
 
             //En caso de no poder bajar pero no terminar el juego
             else{
-                //Smodifican los valores de la matriz
+                //Se modifican los valores de la matriz
                 this.matriz[this.cuadrado1.posX][this.cuadrado1.posY] = this.cuadrado1.letra;
                 this.matriz[this.cuadrado2.posX][this.cuadrado2.posY] = this.cuadrado2.letra;
                 this.matriz[this.cuadrado3.posX][this.cuadrado3.posY] = this.cuadrado3.letra;
                 this.matriz[this.cuadrado4.posX][this.cuadrado4.posY] = this.cuadrado4.letra;
 
-                //Eliminan de la escena los cuadrados, se añaden al bloque de los colocados y se reestablece su posicion inicial
+                //Eliminan de la escena los cuadrados, se añaden al bloque de los colocados y se coloca en su posicion
                 this.remove(this.cuadrado1);
                 this.colocados.add(this.cuadrado1);
                 this.cuadrado1.position.set(5-this.cuadrado1.posX, 8-this.cuadrado1.posY, 0);
@@ -1057,6 +1058,7 @@ class MyScene extends THREE.Scene {
 
         } //Cierre else en caso de no poder bajar
 
+        //Se colocan los cuadrados en la escena mientras avanzan sus posiciones
         this.cuadrado1.position.set(5-this.cuadrado1.posX, -this.cuadrado1.posY, 0);
         this.cuadrado2.position.set(5-this.cuadrado2.posX, -this.cuadrado2.posY, 0);
         this.cuadrado3.position.set(5-this.cuadrado3.posX, -this.cuadrado3.posY, 0);
