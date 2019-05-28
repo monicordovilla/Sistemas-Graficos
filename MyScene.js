@@ -389,15 +389,13 @@ class MyScene extends THREE.Scene {
   //Funcion para crear la gui de la escena
   createGUI() {
       this.guiControls = new function() {
-          this.volumen = 1.0;
           this.pausa = true;
       }
 
       // Se crea una seccion para los controles de sonido
-      var folder = gui.addFolder ('volumen');
+      var folder = gui.addFolder ('Música');
 
-      // Se le añade un control para cambiar el volumen del sonido
-      folder.add(this.guiControls, 'volumen', 0, 1, 0.1).name('volumen : ');
+      // Se le añade un control para pausar el sonido o reanudarlo
       folder.add(this.guiControls, 'pausa').name('pausa : ');
   }
 
@@ -417,7 +415,7 @@ class MyScene extends THREE.Scene {
     // La luz focal, además tiene una posición, y un punto de mira
     // Si no se le da punto de mira, apuntará al (0,0,0) en coordenadas del mundo
     // En este caso se declara como   this.atributo   para que sea un atributo accesible desde otros métodos.
-    this.spotLight = new THREE.SpotLight( 0xffffff, this.guiControls.lightIntensity );
+    this.spotLight = new THREE.SpotLight( 0xffffff, 2 );
     this.spotLight.position.set( 60, 60, 40 );
     this.add (this.spotLight);
   }
@@ -972,11 +970,6 @@ class MyScene extends THREE.Scene {
 
   //Funcion para actualizar la escena en cada frame
   update () {
-      if(this.volumen != this.guiControls.volumen){
-          this.volumen == this.guiControls.volumen;
-          this.sound = this.sound.setVolume(this.volumen);
-      }
-
       if(this.guiControls.pausa){
           this.sound.pause();
       }
