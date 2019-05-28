@@ -1011,11 +1011,14 @@ class MyScene extends THREE.Scene {
 
                 //Si hemos superado el tiempo establecido se aumenta la velocidad de juego
                 if( segundos >= (3*60) ){
-                    if(time > 0.5){//mientras la velocidad de bajada de posicion es 0.5 segundos
+                    if(time > 0.4){//mientras la velocidad de bajada de posicion es 0.4 segundos
                         time -= 0.1;
                     }
-                    else if(time == 0.01){ //Si la velocidad de bajada de posicion es 0.1
-                        //Ultima velocidad disponible
+                    else if(time > 0.2){//mientras la velocidad de bajada de posicion es 0.2 segundos
+                        time -= 0.05;
+                    }
+                    else if(time <= 0.01){ //Si la velocidad de bajada de posicion es 0.1
+                        time = 0.01;
                     }
                     else{ // mientras no es mayor de 0.5 y  no ha llegado a 0.1 la velocidad se baja 0.01, una decima parte, para que sea más leve la diferencia
                         time -= 0.01;

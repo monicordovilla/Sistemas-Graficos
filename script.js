@@ -10,7 +10,7 @@ renderer = null;
 gui = null;
 
 /// El objeto que controla el tiempo
-time = 1;
+time = 0.7;
 
 /// Se crea y configura un renderer WebGL
 /**
